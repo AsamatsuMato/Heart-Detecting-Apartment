@@ -1,19 +1,19 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path'
+
 import uni from '@dcloudio/vite-plugin-uni'
-import AutoImport from "unplugin-auto-import/vite";
+import AutoImport from 'unplugin-auto-import/vite' //引入api自动导入插件
+
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     uni(),
-    AutoImport({
-      imports: ["vue", "@vueuse/core"],
-      eslintrc: {
-        enabled: false,
-        filepath: "./.eslintrc-auto-import.json",
-        globalsPropValue: true,
-      },
-    })
+    AutoImport({ 
+      imports: ['vue', 'vue-router'],
+      // 在src目录下生成一个指令文件存放各种全局指令
+      dts: 'src/auto-import.ts',
+    }),
   ],
   resolve: {
     alias: {
