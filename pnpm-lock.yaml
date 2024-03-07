@@ -51,8 +51,8 @@ dependencies:
     specifier: ^10.6.1
     version: 10.6.1(vue@3.3.8)
   cl-uni:
-    specifier: ^1.8.4
-    version: 1.8.4
+    specifier: ^1.8.20
+    version: 1.8.20
   sass:
     specifier: ^1.69.5
     version: 1.69.5
@@ -100,9 +100,6 @@ devDependencies:
   unplugin-auto-import:
     specifier: ^0.16.7
     version: 0.16.7(@vueuse/core@10.6.1)
-  unplugin-vue-components:
-    specifier: ^0.26.0
-    version: 0.26.0(vue@3.3.8)
   vite:
     specifier: 4.0.3
     version: 4.0.3(sass@1.69.5)(terser@5.24.0)
@@ -3974,8 +3971,8 @@ packages:
     resolution: {integrity: sha512-0TNiGstbQmCFwt4akjjBg5pLRTSyj/PkWQ1ZoO2zntmg9yLqSRxwEa4iCfQLGjqhiqBfOJa7W/E8wfGrTDmlZQ==}
     dev: true
 
-  /cl-uni@1.8.4:
-    resolution: {integrity: sha512-8cTJ90KV8fb/OD6AjJw0B136fxq1+Iesx6+wsKHaOEZwnKlZYrG/OUhuteCtoMoM9FPNKLRB9sdAwy+OnkIhbA==}
+  /cl-uni@1.8.20:
+    resolution: {integrity: sha512-pfNdlMSYrnNfxUrW/ue9CkpI8FMgAKZiSjYqIY0iX70R+z/nBzQK7oemIQ2P7G2YauUh9Md2pV2dCvFB1gHjoA==}
     dev: false
 
   /cliui@7.0.4:
@@ -5848,11 +5845,6 @@ packages:
     resolution: {integrity: sha512-ZvFw1KWS3GVyYBYb7qkmRM/WwL2TQQBxgCK62rlvm4WpVQ23Nb4tYjApUlfjrEGvOs7KHEsmyUn75OHZrJMWPw==}
     engines: {node: '>= 12.13.0'}
 
-  /local-pkg@0.4.3:
-    resolution: {integrity: sha512-SFppqq5p42fe2qcZQqqEOiVRXl+WCP1MdT6k7BDEW1j++sp5fIY+/fdRQitvKgB5BrBcmrs5m/L0v2FrU5MY1g==}
-    engines: {node: '>=14'}
-    dev: true
-
   /local-pkg@0.5.0:
     resolution: {integrity: sha512-ok6z3qlYyCDS4ZEU27HaU6x/xZa9Whf8jD4ptH5UZTQYZVYeb9bnZ3ojVhiJNLiXK1Hfc0GNbLXcmZ5plLDDBg==}
     engines: {node: '>=14'}
@@ -7206,35 +7198,6 @@ packages:
       unplugin: 1.5.1
     transitivePeerDependencies:
       - rollup
-    dev: true
-
-  /unplugin-vue-components@0.26.0(vue@3.3.8):
-    resolution: {integrity: sha512-s7IdPDlnOvPamjunVxw8kNgKNK8A5KM1YpK5j/p97jEKTjlPNrA0nZBiSfAKKlK1gWZuyWXlKL5dk3EDw874LQ==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      '@babel/parser': ^7.15.8
-      '@nuxt/kit': ^3.2.2
-      vue: 2 || 3
-    peerDependenciesMeta:
-      '@babel/parser':
-        optional: true
-      '@nuxt/kit':
-        optional: true
-    dependencies:
-      '@antfu/utils': 0.7.6
-      '@rollup/pluginutils': 5.0.5
-      chokidar: 3.5.3
-      debug: 4.3.4
-      fast-glob: 3.3.2
-      local-pkg: 0.4.3
-      magic-string: 0.30.5
-      minimatch: 9.0.3
-      resolve: 1.22.8
-      unplugin: 1.5.1
-      vue: 3.3.8
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
     dev: true
 
   /unplugin@1.5.1:

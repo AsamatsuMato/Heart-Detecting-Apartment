@@ -9,10 +9,10 @@
             :duration="carouselConfig.duration"
         >
             <swiper-item class="swiper_item">
-                <image class="img" src="@/static/images/体育祭.jpg" mode="scaleToFill"></image>
+                <image class="img" src="@/static/images/carousel1.jpg" mode="scaleToFill"></image>
             </swiper-item>
             <swiper-item class="swiper_item">
-                <image class="img" src="@/static/images/星野&日奈.jpg" mode="scaleToFill"></image>
+                <image class="img" src="@/static/images/carousel2.jpg" mode="scaleToFill"></image>
             </swiper-item>
         </swiper>
     </view>
