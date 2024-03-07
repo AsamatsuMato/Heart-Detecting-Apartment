@@ -6,15 +6,15 @@
         </view>
         <view class="grid">
             <view class="grid_item">
-                <image src="@/static/icon/deposit-payment.png" mode="widthFix"></image>
+                <image src="@/static/icon/inpatient-service/deposit-payment.png" mode="widthFix"></image>
                 <text>押金缴纳</text>
             </view>
             <view class="grid_item">
-                <image src="@/static/icon/admission-list.png" mode="widthFix"></image>
+                <image src="@/static/icon/inpatient-service/admission-list.png" mode="widthFix"></image>
                 <text>住院日清单</text>
             </view>
             <view class="grid_item">
-                <image src="@/static/icon/deposit-record.png" mode="widthFix"></image>
+                <image src="@/static/icon/inpatient-service/deposit-record.png" mode="widthFix"></image>
                 <text>押金记录</text>
             </view>
         </view>

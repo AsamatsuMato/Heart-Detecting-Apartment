@@ -11,7 +11,7 @@
                     <text>在线挂号预约</text>
                 </view>
                 <view class="icon">
-                    <image class="icon_img" src="@/static/icon/register.png" mode="widthFix"></image>
+                    <image class="icon_img" src="@/static/icon/outpatient-service/register.png" mode="widthFix"></image>
                 </view>
             </view>
             <view class="separation"></view>
@@ -21,33 +21,33 @@
                     <text>线上快捷缴费</text>
                 </view>
                 <view class="icon">
-                    <image class="icon_img" src="@/static/icon/pay.png" mode="widthFix"></image>
+                    <image class="icon_img" src="@/static/icon/outpatient-service/pay.png" mode="widthFix"></image>
                 </view>
             </view>
         </view>
         <view class="bottom">
             <view class="item">
-                <image src="@/static/icon/registration-record.png" mode="widthFix"></image>
+                <image src="@/static/icon/outpatient-service/registration-record.png" mode="widthFix"></image>
                 <text>挂号记录</text>
             </view>
             <view class="item">
-                <image src="@/static/icon/report-query.png" mode="widthFix"></image>
+                <image src="@/static/icon/outpatient-service/report-query.png" mode="widthFix"></image>
                 <text>报告查询</text>
             </view>
             <view class="item">
-                <image src="@/static/icon/payment-record.png" mode="widthFix"></image>
+                <image src="@/static/icon/outpatient-service/payment-record.png" mode="widthFix"></image>
                 <text>缴费记录</text>
             </view>
             <view class="item">
-                <image src="@/static/icon/patient-management.png" mode="widthFix"></image>
+                <image src="@/static/icon/outpatient-service/patient-management.png" mode="widthFix"></image>
                 <text>就诊人管理</text>
             </view>
             <view class="item">
-                <image src="@/static/icon/dialysis-prepayment.png" mode="widthFix"></image>
+                <image src="@/static/icon/outpatient-service/dialysis-prepayment.png" mode="widthFix"></image>
                 <text>透析预缴</text>
             </view>
             <view class="item">
-                <image src="@/static/icon/medical-registration.png" mode="widthFix"></image>
+                <image src="@/static/icon/outpatient-service/medical-registration.png" mode="widthFix"></image>
                 <text>体检登记</text>
             </view>
         </view>

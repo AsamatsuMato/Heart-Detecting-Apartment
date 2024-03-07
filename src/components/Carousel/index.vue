@@ -9,10 +9,10 @@
             :duration="carouselConfig.duration"
         >
             <swiper-item class="swiper_item">
-                <image class="img" src="@/static/images/carousel1.jpg" mode="scaleToFill"></image>
+                <image class="img" src="@/static/images/carousel/carousel1.jpg" mode="scaleToFill"></image>
             </swiper-item>
             <swiper-item class="swiper_item">
-                <image class="img" src="@/static/images/carousel2.jpg" mode="scaleToFill"></image>
+                <image class="img" src="@/static/images/carousel/carousel2.jpg" mode="scaleToFill"></image>
             </swiper-item>
         </swiper>
     </view>
@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 	const carouselConfig = ref({
-		indicatorDots: true,
+		indicatorDots: false,
 		autoplay: true,
 		interval: 2000,
 		duration: 500
