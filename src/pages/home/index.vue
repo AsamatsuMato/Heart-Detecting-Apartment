@@ -17,6 +17,6 @@
 <style lang="scss" scoped>
 	.home {
 		padding: 20rpx;
-		background: linear-gradient(to bottom, #226BF3, #FFF 20%);
+		background: linear-gradient(to bottom, #226BF3, #FFF 300rpx);
 	}
 </style>

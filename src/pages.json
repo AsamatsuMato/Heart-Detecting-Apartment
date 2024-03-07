@@ -15,7 +15,8 @@
 		{
 			"path": "pages/about/index",
 			"style": {
-				"navigationBarBackgroundColor": "#226BF3"
+				"navigationBarBackgroundColor": "#226BF3",
+				"navigationBarTitleText": "个人中心"
 			}
 		}
 	],

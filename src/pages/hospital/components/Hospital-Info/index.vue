@@ -6,7 +6,7 @@
 		</view>
 		<view class="phone">
 			<image class="icon" src="@/static/icon/hospital/phone.png" mode="widthFix"></image>
-			<text>0768-2333333</text>
+			<text>020-2333333</text>
 		</view>
 		<view class="location">
 			<image class="icon" src="@/static/icon/hospital/location.png" mode="widthFix"></image>
@@ -44,7 +44,7 @@
 			margin: 20rpx 0;
 			.icon {
 				width: 50rpx;
-				margin: 0 40rpx;
+				margin: 0 40rpx 0 20rpx;
 			}
 		}
 	}
