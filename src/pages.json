@@ -18,6 +18,13 @@
 				"navigationBarBackgroundColor": "#226BF3",
 				"navigationBarTitleText": "个人中心"
 			}
+		},
+		{
+			"path": "pages/registered/select-dept/index",
+			"style": {
+				"navigationBarBackgroundColor": "#226BF3",
+				"navigationBarTitleText": "选择科室"
+			}
 		}
 	],
 	"tabBar": {

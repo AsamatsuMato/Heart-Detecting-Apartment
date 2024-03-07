@@ -5,7 +5,7 @@
             <text class="title">门诊服务</text>
         </view>
         <view class="top">
-            <view class="register">
+            <view class="register" @click="goToRegister">
                 <view class="title">
                     <text>我要挂号</text>
                     <text>在线挂号预约</text>
@@ -55,7 +55,14 @@
 </template>
 
 <script setup lang="ts">
-	
+    import "@dcloudio/uni-app";
+	function goToRegister() {
+        uni.navigateTo({
+            url: '/pages/registered/select-dept/index',
+            animationType: 'pop-in',
+            animationDuration: 200
+        })
+    }
 </script>
 
 <style lang="scss" scoped>
