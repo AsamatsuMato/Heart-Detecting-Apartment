@@ -10,56 +10,33 @@
             scroll-y="true" 
             class="right"
         >
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
-            <view class="item">肿瘤科</view>
-            <view class="item">中心门诊</view>
+            <view class="item" v-for="item in deptList" :key="item.deptCode" @click="goToSelectDoc(item)">{{ item.deptName }}</view>
         </scroll-view>
 	</view>
 </template>
 
 <script setup lang="ts">
-	
+    interface deptListInter {
+        deptCode: string;
+        deptName: string;
+    }
+	const deptList = ref<Array<deptListInter>>([
+        {
+            deptCode: '1000',
+            deptName: '肿瘤科',
+        },
+        {
+            deptCode: '1001',
+            deptName: '中心门诊',
+        },
+    ])
+
+    function goToSelectDoc(params: deptListInter) {
+        const { deptCode, deptName } = params;
+        uni.navigateTo({
+            url: `/pages/registered/select-doctor/index?deptCode=${deptCode}&deptName=${deptName}`
+        })
+    }
 </script>
 
 <style lang="scss" scoped>

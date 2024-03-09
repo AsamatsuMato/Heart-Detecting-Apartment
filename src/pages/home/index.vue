@@ -10,8 +10,8 @@
 <script setup lang="ts">
 	import Carousel from "@/components/Carousel/index.vue";
 	import Copyright from "@/components/Copyright/index.vue";
-	import OutpatientService from "./components/Outpatient-Service/index.vue";
-	import InpatientService from "./components/Inpatient-Service/index.vue";
+	import OutpatientService from "./components/Outpatient-Service.vue";
+	import InpatientService from "./components/Inpatient-Service.vue";
 </script>
 
 <style lang="scss" scoped>

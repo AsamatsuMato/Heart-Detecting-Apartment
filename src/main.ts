@@ -10,6 +10,7 @@ export function createApp() {
 }
  */
 import App from './App.vue'
+import "@dcloudio/uni-app";
 
 import { createSSRApp } from 'vue'
 export function createApp() {

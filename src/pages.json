@@ -25,6 +25,12 @@
 				"navigationBarBackgroundColor": "#226BF3",
 				"navigationBarTitleText": "选择科室"
 			}
+		},
+		{
+			"path": "pages/registered/select-doctor/index",
+			"style": {
+				"navigationBarBackgroundColor": "#226BF3"
+			}
 		}
 	],
 	"tabBar": {

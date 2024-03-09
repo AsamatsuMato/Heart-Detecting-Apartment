@@ -55,7 +55,6 @@
 </template>
 
 <script setup lang="ts">
-    import "@dcloudio/uni-app";
 	function goToRegister() {
         uni.navigateTo({
             url: '/pages/registered/select-dept/index',

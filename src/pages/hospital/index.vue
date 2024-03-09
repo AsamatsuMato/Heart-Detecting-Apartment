@@ -11,9 +11,9 @@
 <script setup lang="ts">
 	import Carousel from "@/components/Carousel/index.vue";
 	import Copyright from "@/components/Copyright/index.vue";
-	import HospitalInfo from "./components/Hospital-Info/index.vue";
-	import HospitalService from "./components/Hospital-Service/index.vue";
-	import HospitalIntroduction from "./components/Hospital-Introduction/index.vue";
+	import HospitalInfo from "./components/Hospital-Info.vue";
+	import HospitalService from "./components/Hospital-Service.vue";
+	import HospitalIntroduction from "./components/Hospital-Introduction.vue";
 </script>
 
 <style lang="scss" scoped>
