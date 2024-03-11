@@ -29,7 +29,36 @@
 		{
 			"path": "pages/registered/select-doctor/index",
 			"style": {
-				"navigationBarBackgroundColor": "#226BF3"
+				"navigationBarBackgroundColor": "#226BF3",
+				"navigationBarTitleText": "选择医生"
+			}
+		},
+		{
+			"path": "pages/registered/select-time/index",
+			"style": {
+				"navigationBarBackgroundColor": "#226BF3",
+				"navigationBarTitleText": "选择预约时间"
+			}
+		},
+		{
+			"path": "pages/registered/reg-confirm/index",
+			"style": {
+				"navigationBarBackgroundColor": "#226BF3",
+				"navigationBarTitleText": "确认预约信息"
+			}
+		},
+		{
+			"path": "pages/registered/reg-notice/index",
+			"style": {
+				"navigationBarBackgroundColor": "#226BF3",
+				"navigationBarTitleText": "预约须知"
+			}
+		},
+		{
+			"path": "pages/registered/reg-result/index",
+			"style": {
+				"navigationBarBackgroundColor": "#226BF3",
+				"navigationBarTitleText": "预约结果"
 			}
 		}
 	],

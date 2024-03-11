@@ -75,6 +75,7 @@
             justify-content: space-evenly;
 
             .item {
+                width: 60rpx;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;

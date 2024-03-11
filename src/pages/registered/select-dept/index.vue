@@ -33,8 +33,10 @@
 
     function goToSelectDoc(params: deptListInter) {
         const { deptCode, deptName } = params;
+        uni.setStorageSync('deptCode', deptCode);
+        uni.setStorageSync('deptName', deptName);
         uni.navigateTo({
-            url: `/pages/registered/select-doctor/index?deptCode=${deptCode}&deptName=${deptName}`
+            url: '/pages/registered/select-doctor/index'
         })
     }
 </script>

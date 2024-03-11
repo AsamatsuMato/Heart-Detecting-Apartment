@@ -14,15 +14,11 @@
     const dateSelectorRef = ref();
     const doctorListRef = ref();
 
-    // 先用 onLoad 方法获取 query 参数
-    const deptInfo = ref();
-    onLoad((option: any) => {
-        deptInfo.value = option;
-    })
-
-    // 在页面全部挂载后再进行数据的传输
     onMounted(() => {
-        dateSelectorRef.value.deptInfo = deptInfo.value;
+        dateSelectorRef.value.deptInfo = {
+            deptCode: uni.getStorageSync('deptCode'),
+            deptName: uni.getStorageSync('deptName'),
+        };
 
         const monthRes = getCurrentMonth();
         dateSelectorRef.value.monthInfo = monthRes;
