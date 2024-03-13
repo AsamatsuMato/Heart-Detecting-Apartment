@@ -38,7 +38,7 @@
                 <image src="@/static/icon/outpatient-service/payment-record.png" mode="widthFix"></image>
                 <text>缴费记录</text>
             </view>
-            <view class="item">
+            <view class="item" @click="goToPatientManagement">
                 <image src="@/static/icon/outpatient-service/patient-management.png" mode="widthFix"></image>
                 <text>就诊人管理</text>
             </view>
@@ -55,11 +55,16 @@
 </template>
 
 <script setup lang="ts">
+
 	function goToRegister() {
         uni.navigateTo({
             url: '/pages/registered/select-dept/index',
-            animationType: 'pop-in',
-            animationDuration: 200
+        })
+    }
+
+	function goToPatientManagement() {
+        uni.navigateTo({
+            url: '/pages/patient-management/index',
         })
     }
 </script>

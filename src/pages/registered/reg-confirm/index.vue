@@ -39,11 +39,13 @@
             <text>挂号前请仔细阅读</text>
             <text @click="goToNotice">《挂号须知》</text>
         </view>
-        <button @click="goToConfirm">确 认 预 约</button>
+        <custom-button content="确 认 预 约" @click="goToConfirm"></custom-button>
 	</view>
 </template>
 
 <script setup lang="ts">
+    import CustomButton from "@/components/Custom-Button/index.vue";
+
     function goToNotice() {
         uni.navigateTo({
             url: '/pages/registered/reg-notice/index'

@@ -9,11 +9,13 @@
             4. 如遇医生停诊，将以微信信息方式通知或客服通知。<br>
             5. 当天挂号成功后，可凭挂号单到诊室就诊。
         </view>
-        <button @click="confirm">确认</button>
+        <custom-button @click="confirm"></custom-button>
 	</view>
 </template>
 
 <script setup lang="ts">
+    import CustomButton from "@/components/Custom-Button/index.vue";
+
     function confirm() {
         uni.navigateBack();
     }

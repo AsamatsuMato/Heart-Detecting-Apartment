@@ -60,6 +60,27 @@
 				"navigationBarBackgroundColor": "#226BF3",
 				"navigationBarTitleText": "预约结果"
 			}
+		},
+		{
+			"path": "pages/patient-management/index",
+			"style": {
+				"navigationBarBackgroundColor": "#226BF3",
+				"navigationBarTitleText": "管理就诊人"
+			}
+		},
+		{
+			"path": "pages/patient-management/add-patient/index",
+			"style": {
+				"navigationBarBackgroundColor": "#226BF3",
+				"navigationBarTitleText": "添加就诊人"
+			}
+		},
+		{
+			"path": "pages/patient-management/patient-info/index",
+			"style": {
+				"navigationBarBackgroundColor": "#226BF3",
+				"navigationBarTitleText": "就诊人信息"
+			}
 		}
 	],
 	"tabBar": {

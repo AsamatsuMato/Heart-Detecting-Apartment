@@ -1,12 +1,12 @@
 <template xlang="wxml" minapp="mpvue">
 	<view class="tki-qrcode">
 		<!-- #ifndef MP-ALIPAY -->
-		<canvas class="tki-qrcode-canvas" :canvas-id="cid" :style="{width:cpSize+'px',height:cpSize+'px'}" />
+		<canvas class="tki-qrcode-canvas" :canvas-id="cid" :style="{width:cpSize+'rpx',height:cpSize+'rpx'}" />
 		<!-- #endif -->
 		<!-- #ifdef MP-ALIPAY -->
 		<canvas :id="cid" :width="cpSize" :height="cpSize" class="tki-qrcode-canvas" />
 		<!-- #endif -->
-		<image v-show="show" :src="result" :style="{width:cpSize+'px',height:cpSize+'px'}" />
+		<image v-show="show" :src="result" :style="{width:cpSize+'rpx',height:cpSize+'rpx'}" />
 	</view>
 </template>
 

@@ -6,13 +6,25 @@
             <view class="extra">您已预约成功，请您持本人身份证按时就诊</view>
             <view class="extra">到院就诊时请先到自助机取号排队</view>
         </view>
-        <button class="details_btn">查看预约详情</button>
-        <button class="index_btn">返回首页</button>
+        <custom-button content="查看预约详情"></custom-button>
+        <custom-button 
+            content="返回首页" 
+            @click="backToHome"
+            background="#E5F0FE"
+            border="1rpx solid #CFD8E5"
+            color="#226BF3"
+        ></custom-button>
 	</view>
 </template>
 
 <script setup lang="ts">
-    
+    import CustomButton from "@/components/Custom-Button/index.vue";
+
+    function backToHome() {
+        uni.reLaunch({
+            url: '/pages/home/index'
+        })
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -41,22 +53,8 @@
             }
         }
 
-        .details_btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #226BF3;
-            color: #FFF;
+        :deep(.custom-button) {
             margin-bottom: 20rpx;
-        }
-
-        .index_btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #E5F0FE;
-            color: #226BF3;
-            border: 1rpx solid #CFD8E5;
         }
     }
 </style>
