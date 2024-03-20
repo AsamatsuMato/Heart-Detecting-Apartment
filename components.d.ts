@@ -5,11 +5,14 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-declare module 'vue' {
+declare module "vue" {
   export interface GlobalComponents {
-    Carousel: typeof import('./src/pages/home/components/Carousel.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
-    TkiQrcode: typeof import('./src/components/tki-qrcode/tki-qrcode.vue')['default']
+    Carousel: (typeof import("./src/components/Carousel/index.vue"))["default"];
+    Copyright: (typeof import("./src/components/Copyright/index.vue"))["default"];
+    CustomButton: (typeof import("./src/components/Custom-Button/index.vue"))["default"];
+    RouterLink: (typeof import("vue-router"))["RouterLink"];
+    RouterView: (typeof import("vue-router"))["RouterView"];
+    TkiQrcode: (typeof import("./src/components/tki-qrcode/tki-qrcode.vue"))["default"];
+    VanButton: (typeof import("vant/es"))["Button"];
   }
 }

@@ -1,151 +1,153 @@
 <template>
-	<view class="doctor_list">
-		<view class="label">
-            坐诊医生
-        </view>
-		<view class="list">
-            <view class="item" v-for="item in docList" :key="item.docId">
-                <image src="@/static/icon/about/default-head.svg" mode="widthFix"></image>
-                <view class="doc_info">
-                    <view class="top">
-                        <view class="top_left">
-                            <view class="name_position">
-                                <text>{{ item.docName }}</text>
-                                <text>{{ item.position }}</text>
-                            </view>
-                            <view class="registered_quantity">月度累计挂号量: {{ item.registeredQuantity }}</view>
-                        </view>
-                        <view class="price">￥{{ item.price }}</view>
-                        <button :disabled="item.remaining === 0" @click="goToSelectTime">{{ item.remaining === 0 ? '约满' : `剩余${item.remaining}` }}</button>
-                    </view>
-                    <view class="bottom">
-                        {{ item.docIntro }}
-                    </view>
-                </view>
+  <view class="doctor_list">
+    <view class="label"> 坐诊医生 </view>
+    <view class="list">
+      <view class="item" v-for="item in docList" :key="item.docId">
+        <image
+          src="@/static/icon/about/default-head.svg"
+          mode="widthFix"
+        ></image>
+        <view class="doc_info">
+          <view class="top">
+            <view class="top_left">
+              <view class="name_position">
+                <text>{{ item.docName }}</text>
+                <text>{{ item.position }}</text>
+              </view>
+              <view class="registered_quantity"
+                >月度累计挂号量: {{ item.registeredQuantity }}</view
+              >
             </view>
+            <view class="price">￥{{ item.price }}</view>
+            <button :disabled="item.remaining === 0" @click="goToSelectTime">
+              {{ item.remaining === 0 ? "约满" : `剩余${item.remaining}` }}
+            </button>
+          </view>
+          <view class="bottom">
+            {{ item.docIntro }}
+          </view>
         </view>
-	</view>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script setup lang="ts">
+const docList = ref([
+  {
+    docId: "Doc1000",
+    docName: "邓庆权",
+    position: "副主任医师",
+    registeredQuantity: 93,
+    docIntro: "从事泌尿外科专业19年。擅长治疗泌尿系肿瘤、结石、前列腺疾患",
+    price: 12,
+    remaining: 50,
+  },
+  {
+    docId: "Doc1001",
+    docName: "张甲佑",
+    position: "副主任医师",
+    registeredQuantity: 102,
+    docIntro:
+      "从事临床、门诊诊疗工作47年。诊治大批危、疑、难患者，积累了丰富的临床经验，发表医学论文10余篇，获多项科技奖项。擅长外科，特别是泌尿外科病的诊治，如前列腺病、各种结石、肿瘤、男性病、不育症等",
+    price: 12,
+    remaining: 0,
+  },
+]);
 
-    const docList = ref([
-        {
-            docId: 'Doc1000',
-            docName: '邓庆权',
-            position: '副主任医师',
-            registeredQuantity: 93,
-            docIntro: '从事泌尿外科专业19年。擅长治疗泌尿系肿瘤、结石、前列腺疾患',
-            price: 12,
-            remaining: 50
-        },
-        {
-            docId: 'Doc1001',
-            docName: '张甲佑',
-            position: '副主任医师',
-            registeredQuantity: 102,
-            docIntro: '从事临床、门诊诊疗工作47年。诊治大批危、疑、难患者，积累了丰富的临床经验，发表医学论文10余篇，获多项科技奖项。擅长外科，特别是泌尿外科病的诊治，如前列腺病、各种结石、肿瘤、男性病、不育症等',
-            price: 12,
-            remaining: 0
-        },
-    ])
-
-    function goToSelectTime() {
-        uni.navigateTo({
-            url: '/pages/registered/select-time/index'
-        })
-    }
+function goToSelectTime() {
+  uni.navigateTo({
+    url: "/pages/registered/select-time/index",
+  });
+}
 </script>
 
 <style lang="scss" scoped>
-	.doctor_list {
-        padding: 20rpx;
+.doctor_list {
+  padding: 20rpx;
 
-        .label {
-            margin-bottom: 40rpx;
-        }
+  .label {
+    margin-bottom: 40rpx;
+  }
 
-        .list {
+  .list {
+    .item {
+      border: 1rpx solid #d7d7d7;
+      background-color: #fff;
+      border-radius: 5px;
+      margin-bottom: 20rpx;
+      padding: 20rpx;
+      display: flex;
+      align-items: center;
 
-            .item {
-                border: 1rpx solid #D7D7D7;
-                background-color: #FFF;
-                border-radius: 5px;
-                margin-bottom: 20rpx;
-                padding: 20rpx;
-                display: flex;
-                align-items: center;
+      image {
+        width: 130rpx;
+        margin-right: 20rpx;
+      }
 
-                image {
-                    width: 130rpx;
-                    margin-right: 20rpx;
+      .doc_info {
+        height: 130rpx;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .top_left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .name_position {
+              text {
+                &:nth-child(1) {
+                  font-size: 32rpx;
+                  margin-right: 10rpx;
                 }
 
-                .doc_info {
-                    height: 130rpx;
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-around;
-
-                    .top {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-
-                        .top_left {
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: space-between;
-
-                            .name_position {
-                                
-                                text {
-
-                                    &:nth-child(1) {
-                                        font-size: 32rpx;
-                                        margin-right: 10rpx;
-                                    }
-
-                                    &:nth-child(2) {
-                                        font-size: 26rpx;
-                                    }
-                                }
-                            }
-
-                            .registered_quantity {
-                                font-size: 26rpx;
-                                color: #877F7F;
-                            }
-                        }
-
-                        .price {
-                            color: #FF0000;
-                        }
-
-                        button {
-                            width: 170rpx;
-                            height: 64rpx;
-                            font-size: 32rpx;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            background-color: #226BF3;
-                            color: #FFF;
-                        }
-                    }
-
-                    .bottom {
-                        text-overflow: ellipsis;
-                        display: -webkit-box;
-                        -webkit-box-orient: vertical;
-                        -webkit-line-clamp: 1;
-                        overflow: hidden;
-                        font-size: 26rpx;
-                        color: #877F7F;
-                    }
+                &:nth-child(2) {
+                  font-size: 26rpx;
                 }
+              }
             }
+
+            .registered_quantity {
+              font-size: 26rpx;
+              color: #877f7f;
+            }
+          }
+
+          .price {
+            color: #ff0000;
+          }
+
+          button {
+            width: 170rpx;
+            height: 64rpx;
+            font-size: 32rpx;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #226bf3;
+            color: #fff;
+          }
         }
+
+        .bottom {
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+          overflow: hidden;
+          font-size: 26rpx;
+          color: #877f7f;
+        }
+      }
     }
+  }
+}
 </style>

@@ -1,101 +1,111 @@
 <template>
-    <view class="date_selector">
-        <view class="date">
-            <view>
-                <text style="font-size: 35px;margin-right: 10rpx;">{{ currentMonth }}</text>
-                <text>月</text>
-            </view>
-            <view style="font-size: 12px;">
-                {{ monthInfo.EnglishName }}
-            </view>
-        </view>
-        <view class="selector">
-            <view class="item" v-for="item in selectorInfo" :key="item.week" @click="handleSelect(item.week)">
-                <view>{{ item.week }}</view>
-                <view class="btn" :class="item.isActive ? 'active' : ''">{{ item.date }}</view>
-            </view>
-        </view>
+  <view class="date_selector">
+    <view class="date">
+      <view>
+        <text style="font-size: 35px; margin-right: 10rpx">{{
+          currentMonth
+        }}</text>
+        <text>月</text>
+      </view>
+      <view style="font-size: 12px">
+        {{ monthInfo.EnglishName }}
+      </view>
     </view>
+    <view class="selector">
+      <view
+        class="item"
+        v-for="item in selectorInfo"
+        :key="item.week"
+        @click="handleSelect(item.week)"
+      >
+        <view>{{ item.week }}</view>
+        <view class="btn" :class="item.isActive ? 'active' : ''">{{
+          item.date
+        }}</view>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script setup lang="ts">
-    import { type deptListInter, type selectorInfoInter } from "./types";
+import { type deptListInter, type selectorInfoInter } from "./types";
 
-    const deptInfo = ref<deptListInter>({
-        deptCode: '',
-        deptName: ''
-    });
+const deptInfo = ref<deptListInter>({
+  deptCode: "",
+  deptName: "",
+});
 
-    const monthInfo = ref({
-        currentMonth: 0,
-        EnglishName: ''
-    });
+const monthInfo = ref({
+  currentMonth: 0,
+  EnglishName: "",
+});
 
-    const currentMonth = computed(() => {
-        return `${monthInfo.value.currentMonth < 10 ? '0' : ''}${monthInfo.value.currentMonth}`;
-    })
+const currentMonth = computed(() => {
+  return `${monthInfo.value.currentMonth < 10 ? "0" : ""}${
+    monthInfo.value.currentMonth
+  }`;
+});
 
-    const selectorInfo = ref<Array<selectorInfoInter>>([]);
+const selectorInfo = ref<Array<selectorInfoInter>>([]);
 
-    function handleSelect(params: string) {
-        selectorInfo.value.forEach((item: selectorInfoInter) => {
-            if(item.week === params) {
-                item.isActive = true;
-            } else {
-                item.isActive = false;
-            }
-        })
+function handleSelect(params: string) {
+  selectorInfo.value.forEach((item: selectorInfoInter) => {
+    if (item.week === params) {
+      item.isActive = true;
+    } else {
+      item.isActive = false;
     }
+  });
+}
 
-    defineExpose({
-        deptInfo,
-        monthInfo,
-        selectorInfo
-    })
+defineExpose({
+  deptInfo,
+  monthInfo,
+  selectorInfo,
+});
 </script>
 
 <style lang="scss" scoped>
-    .date_selector {
+.date_selector {
+  display: flex;
+  padding: 40rpx 20rpx;
+  margin: 20rpx 0;
+  background-color: #fff;
+
+  .date {
+    color: #3e8bfb;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .selector {
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly;
+
+    .item {
+      width: 60rpx;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+
+      .btn {
+        border-radius: 50%;
+        width: 40rpx;
+        height: 40rpx;
         display: flex;
-        padding: 40rpx 20rpx;
-        margin: 20rpx 0;
-        background-color: #FFF;
+        justify-content: center;
+        align-items: center;
+      }
 
-        .date {
-            color: #3E8BFB;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .selector {
-            display: flex;
-            flex: 1;
-            justify-content: space-evenly;
-
-            .item {
-                width: 60rpx;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-
-                .btn {
-                    border-radius: 50%;
-                    width: 40rpx;
-                    height: 40rpx;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                .active {
-                    background-color: #226BF3;
-                    color: #FFF;
-
-                }
-            }
-        }
+      .active {
+        background-color: #226bf3;
+        color: #fff;
+      }
     }
+  }
+}
 </style>
