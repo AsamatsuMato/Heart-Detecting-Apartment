@@ -38,11 +38,49 @@
     <view class="left">
       合计: <text class="total_price">{{ totalPrice }}</text>
     </view>
-    <view class="right">立即支付</view>
+    <view class="right" @click="pay">立即支付</view>
   </view>
+  <Drawer v-model="payDrawer" :height="500">
+    <template #title>
+      <text>请选择支付方式</text>
+    </template>
+    <template #content>
+      <view class="item" @click="goToPay">
+        <view class="left">
+          <image
+            src="@/static/icon/outpatient-payment/alipay.svg"
+            mode="widthFix"
+          ></image>
+          <text>支付宝支付</text>
+        </view>
+        <view class="right">
+          <image
+            src="@/static/icon/about/arrow-right.svg"
+            mode="widthFix"
+          ></image>
+        </view>
+      </view>
+      <view class="item">
+        <view class="left">
+          <image
+            src="@/static/icon/outpatient-service/dialysis-prepayment.png"
+            mode="widthFix"
+          ></image>
+          <text>预交金支付</text>
+        </view>
+        <view class="right">
+          <image
+            src="@/static/icon/about/arrow-right.svg"
+            mode="widthFix"
+          ></image>
+        </view>
+      </view>
+    </template>
+  </Drawer>
 </template>
 
 <script setup lang="ts">
+import Drawer from "@/components/Drawer/index.vue";
 const projectList = ref([
   {
     projectId: "3016",
@@ -81,6 +119,17 @@ const totalPrice = computed(() => {
   });
   return price;
 });
+
+const payDrawer = ref(false);
+function pay() {
+  payDrawer.value = true;
+}
+
+function goToPay() {
+  uni.navigateTo({
+    url: "/pages/outpatient-payment/payment-result/index",
+  });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -200,6 +249,32 @@ const totalPrice = computed(() => {
     background-color: #3678f4;
     color: #fff;
     justify-content: center;
+  }
+}
+
+.drawer {
+  .item {
+    border-bottom: 1rpx solid #cdcdcd;
+    width: 90%;
+    height: 120rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .left {
+      display: flex;
+      align-items: center;
+      image {
+        width: 60rpx;
+        margin-right: 30rpx;
+      }
+    }
+
+    .right {
+      image {
+        width: 20rpx;
+      }
+    }
   }
 }
 </style>

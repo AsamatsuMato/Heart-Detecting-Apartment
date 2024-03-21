@@ -1,60 +1,17 @@
 <template>
-  <view class="reg_result">
-    <view class="reg_status_info">
-      <image src="@/static/icon/reg-result/success.svg" mode="widthFix"></image>
-      <view class="status">预约成功</view>
-      <view class="extra">您已预约成功，请您持本人身份证按时就诊</view>
-      <view class="extra">到院就诊时请先到自助机取号排队</view>
-    </view>
-    <custom-button content="查看预约详情"></custom-button>
-    <custom-button
-      content="返回首页"
-      @click="backToHome"
-      background="#E5F0FE"
-      border="1rpx solid #CFD8E5"
-      color="#226BF3"
-    ></custom-button>
-  </view>
+  <Result
+    title="预约成功"
+    :content="content"
+    main-button-message="查看预约详情"
+  />
 </template>
 
 <script setup lang="ts">
-import CustomButton from "@/components/Custom-Button/index.vue";
+import Result from "@/components/Result/index.vue";
 
-function backToHome() {
-  uni.reLaunch({
-    url: "/pages/home/index",
-  });
-}
+const content = ref(
+  `您已预约成功<br>请您使用本人身份证或电子健康码等凭证按时就诊<br>到院就诊请先到自助机取号排队!`
+);
 </script>
 
-<style lang="scss" scoped>
-.reg_result {
-  padding: 100rpx 20rpx;
-
-  .reg_status_info {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 400rpx;
-    margin-bottom: 100rpx;
-
-    image {
-      width: 200rpx;
-    }
-
-    .status {
-      font-size: 40rpx;
-    }
-
-    .extra {
-      font-size: 36rpx;
-      color: #aaa;
-    }
-  }
-
-  :deep(.custom_button) {
-    margin-bottom: 20rpx;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

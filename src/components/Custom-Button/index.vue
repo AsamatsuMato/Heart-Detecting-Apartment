@@ -5,6 +5,7 @@
       background: props.background,
       color: props.color,
       border: props.border ? border : '',
+      borderColor: props.background,
     }"
     @click="click"
   >
@@ -43,5 +44,7 @@ function click() {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 5px;
+  height: 90rpx;
 }
 </style>

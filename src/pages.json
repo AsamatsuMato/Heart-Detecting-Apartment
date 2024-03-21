@@ -95,6 +95,13 @@
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "确认缴费信息"
       }
+    },
+    {
+      "path": "pages/outpatient-payment/payment-result/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "缴费信息"
+      }
     }
   ],
   "tabBar": {

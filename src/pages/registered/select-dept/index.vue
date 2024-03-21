@@ -48,7 +48,8 @@ function goToSelectDoc(params: deptListInter) {
   .left {
     width: 30vw;
     height: 100vh;
-    background-color: #f2f2f2;
+    background-color: #fff;
+    font-weight: bold;
 
     .item {
       height: 130rpx;
@@ -56,21 +57,29 @@ function goToSelectDoc(params: deptListInter) {
       justify-content: center;
       align-items: center;
       color: #4186fb;
-      background-color: #fff;
+      background-color: #fafafa;
+      gap: 10px;
+      flex-direction: row;
+      box-shadow: inset -5rpx -5rpx 10rpx rgba(148, 148, 148, 0.25);
+      background: #fafafa;
+      flex: none;
+      order: 0;
+      flex-grow: 0;
     }
   }
 
   .right {
     width: 70vw;
     height: 100vh;
-    padding: 0 20rpx;
-    background-color: #fff;
+    background-color: #fafafa;
 
     .item {
       height: 130rpx;
       display: flex;
+      justify-content: center;
       align-items: center;
-      border-bottom: 1rpx solid #d7d7d7;
+      border-bottom: 1rpx solid #f4f4f4;
+      background-color: #fafafa;
     }
   }
 }
