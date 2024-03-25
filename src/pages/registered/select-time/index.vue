@@ -8,12 +8,9 @@
         ></image>
         <view class="details">
           <view class="name">
-            <text>{{ docInfo.docName }}</text>
-            <text>{{ docInfo.position }}</text>
+            {{ docInfo.docName }}
           </view>
-          <view class="registered_quantity"
-            >月度累计挂号量: {{ docInfo.registeredQuantity }}</view
-          >
+          <view class="position">{{ docInfo.position }}</view>
         </view>
       </view>
       <view class="bottom">
@@ -57,7 +54,6 @@ onMounted(() => {
 const docInfo = ref({
   docName: "张甲佑",
   position: "副主任医师",
-  registeredQuantity: 102,
   isCollect: false,
   docIntro:
     "从事临床、门诊诊疗工作47年。诊治大批危、疑、难患者，积累了丰富的临床经验，发表医学论文10余篇，获多项科技奖项。擅长外科，特别是泌尿外科病的诊治，如前列腺病、各种结石、肿瘤、男性病、不育症等",
@@ -103,6 +99,7 @@ function goToConfirm() {
 <style lang="scss" scoped>
 .select_time {
   padding: 20rpx 0;
+  color: #313131;
 
   .doc_info {
     padding: 20rpx 40rpx;
@@ -121,20 +118,14 @@ function goToConfirm() {
       .details {
         .name {
           margin-bottom: 10rpx;
-          text:nth-child(1) {
-            font-size: 36rpx;
-            margin-right: 20rpx;
-          }
-
-          text:nth-child(2) {
-            font-size: 32rpx;
-          }
+          font-size: 36rpx;
+          font-weight: bold;
         }
 
-        .registered_quantity {
-          color: #877f7f;
-          font-size: 24rpx;
+        .position {
+          font-size: 28rpx;
           margin-top: 10rpx;
+          color: #585858;
         }
       }
     }
@@ -142,17 +133,17 @@ function goToConfirm() {
     .bottom {
       font-size: 32rpx;
       line-height: 1.5em;
-      color: #877f7f;
+      color: #585858;
     }
   }
 
   .selector {
     display: flex;
     margin-top: 20rpx;
+    max-height: calc(100vh - 580rpx);
 
     .left {
       width: 40vw;
-      height: 100vh;
       background-color: #f2f2f2;
 
       .item {
@@ -171,7 +162,6 @@ function goToConfirm() {
 
     .right {
       width: 60vw;
-      height: 100vh;
       padding: 0 20rpx;
       background-color: #fff;
 

@@ -60,7 +60,7 @@ function goToSelectDoc(params: deptListInter) {
       background-color: #fafafa;
       gap: 10px;
       flex-direction: row;
-      box-shadow: inset -5rpx -5rpx 10rpx rgba(148, 148, 148, 0.25);
+      box-shadow: inset -5rpx 5rpx 10rpx rgba(148, 148, 148, 0.25);
       background: #fafafa;
       flex: none;
       order: 0;

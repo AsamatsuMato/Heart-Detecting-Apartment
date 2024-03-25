@@ -41,7 +41,7 @@
       </view>
     </view>
     <view class="notice">
-      <text>挂号前请仔细阅读</text>
+      <text>确认预约前请仔细阅读</text>
       <text @click="goToNotice">《挂号须知》</text>
     </view>
     <custom-button content="确 认 预 约" @click="goToConfirm"></custom-button>
@@ -67,26 +67,27 @@ function goToConfirm() {
 <style lang="scss" scoped>
 .reg_confirm {
   padding: 20rpx;
+  min-height: 100vh;
+  background-color: #f5f5f5;
 
   .reg_info,
   .personal_info {
-    border: 1rpx solid #d7d7d7;
+    background-color: #fff;
     border-radius: 5px;
     padding: 0 30rpx;
     margin-bottom: 20rpx;
 
     .item {
-      height: 130rpx;
+      height: 120rpx;
       display: flex;
       align-items: center;
-      border-bottom: 1rpx solid #d7d7d7;
+      border-bottom: 1rpx solid #cdcdcd;
 
       &:nth-last-child(1) {
         border: none;
       }
 
       .label {
-        color: #aaaaaa;
         margin-right: 40rpx;
         font-size: 30rpx;
       }
@@ -102,20 +103,31 @@ function goToConfirm() {
         margin-right: 20rpx;
       }
 
-      .doc_name {
-        font-size: 34rpx;
-        margin-right: 20rpx;
-      }
+      view {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100%;
+        .doc_name {
+          font-size: 34rpx;
+          margin-right: 20rpx;
+          font-weight: bold;
+        }
 
-      .doc_position {
-        font-size: 24rpx;
+        .doc_position {
+          font-size: 24rpx;
+          color: #585858;
+        }
       }
     }
   }
 
   .notice {
-    margin-top: 50rpx;
+    margin-top: 100rpx;
     margin-bottom: 20rpx;
+    color: #aaaaaa;
+    font-size: 26rpx;
+    text-align: center;
 
     text:nth-child(2) {
       margin-left: 20rpx;

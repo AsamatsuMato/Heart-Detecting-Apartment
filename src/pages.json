@@ -102,6 +102,13 @@
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "缴费信息"
       }
+    },
+    {
+      "path": "pages/report/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "报告查询"
+      }
     }
   ],
   "tabBar": {

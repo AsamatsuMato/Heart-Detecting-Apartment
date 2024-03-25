@@ -86,14 +86,14 @@ defineExpose({
     justify-content: space-evenly;
 
     .item {
-      width: 60rpx;
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
 
       .btn {
-        border-radius: 50%;
+        border-radius: 5px;
         width: 40rpx;
         height: 40rpx;
         display: flex;

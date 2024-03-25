@@ -41,7 +41,7 @@
         ></image>
         <text>挂号记录</text>
       </view>
-      <view class="item">
+      <view class="item" @click="goToReport">
         <image
           src="@/static/icon/outpatient-service/report-query.png"
           mode="widthFix"
@@ -96,6 +96,12 @@ function goToPatientManagement() {
 function goToPay() {
   uni.navigateTo({
     url: "/pages/outpatient-payment/index",
+  });
+}
+
+function goToReport() {
+  uni.navigateTo({
+    url: "/pages/report/index",
   });
 }
 </script>

@@ -8,7 +8,6 @@
 <script setup lang="ts">
 import DateSelector from "./components/Date-Selector.vue";
 import DoctorList from "./components/Doctor-List.vue";
-import { onLoad } from "@dcloudio/uni-app";
 import { getCurrentMonth, getSevenDays } from "./getDate";
 
 const dateSelectorRef = ref();
@@ -28,4 +27,9 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.select_doctor {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+</style>
