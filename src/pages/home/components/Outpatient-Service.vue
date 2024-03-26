@@ -62,7 +62,7 @@
         ></image>
         <text>就诊人管理</text>
       </view>
-      <view class="item">
+      <view class="item" @click="goToDialysisPrepayment">
         <image
           src="@/static/icon/outpatient-service/dialysis-prepayment.png"
           mode="widthFix"
@@ -108,6 +108,12 @@ function goToReport() {
 function goToRegistrationRecord() {
   uni.navigateTo({
     url: "/pages/registration-record/index",
+  });
+}
+
+function goToDialysisPrepayment() {
+  uni.navigateTo({
+    url: "/pages/dialysis-prepayment/index",
   });
 }
 </script>

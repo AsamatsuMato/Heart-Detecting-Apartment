@@ -116,6 +116,13 @@
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "预约挂号记录"
       }
+    },
+    {
+      "path": "pages/dialysis-prepayment/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "透析预缴"
+      }
     }
   ],
   "tabBar": {
