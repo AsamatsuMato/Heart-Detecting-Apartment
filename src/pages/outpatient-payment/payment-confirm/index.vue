@@ -134,7 +134,7 @@ function goToPay() {
 
 <style lang="scss" scoped>
 .payment_confirm {
-  padding: 20rpx;
+  padding: 20rpx 20rpx 140rpx;
   background-color: #f5f5f5;
   font-size: 32rpx;
 
@@ -220,7 +220,7 @@ function goToPay() {
 .footer {
   width: 100%;
   display: flex;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   height: 120rpx;
   background-color: #fff;

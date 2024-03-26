@@ -120,6 +120,7 @@ function goToSelectTime() {
             background-color: #226bf3;
             color: #fff;
             border-radius: 5px;
+            border: none;
 
             .price {
               margin-right: 10rpx;

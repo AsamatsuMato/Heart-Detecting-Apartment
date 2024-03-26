@@ -29,12 +29,14 @@
         >
       </scroll-view>
       <scroll-view scroll-y="true" class="right">
-        <view class="item" v-for="item in timeList" :key="item.timePeriodId">
+        <view
+          class="item"
+          v-for="item in timeList"
+          :key="item.timePeriodId"
+          @click="goToConfirm"
+        >
           <view>{{ item.timePeriod }}</view>
-          <view
-            v-if="item.remaining !== 0"
-            style="color: #226bf3"
-            @click="goToConfirm"
+          <view v-if="item.remaining !== 0" style="color: #226bf3"
             >剩余{{ item.remaining }}</view
           >
           <view v-else>约满</view>

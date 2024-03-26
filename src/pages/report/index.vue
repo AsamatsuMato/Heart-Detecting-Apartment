@@ -168,6 +168,7 @@ function viewReport() {
           background-color: #226bf3;
           color: #fff;
           border-radius: 5px;
+          border-color: #226bf3;
         }
       }
     }

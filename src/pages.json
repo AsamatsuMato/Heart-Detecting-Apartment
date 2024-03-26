@@ -109,6 +109,13 @@
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "报告查询"
       }
+    },
+    {
+      "path": "pages/registration-record/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "预约挂号记录"
+      }
     }
   ],
   "tabBar": {

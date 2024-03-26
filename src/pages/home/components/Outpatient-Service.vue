@@ -34,7 +34,7 @@
       </view>
     </view>
     <view class="bottom">
-      <view class="item">
+      <view class="item" @click="goToRegistrationRecord">
         <image
           src="@/static/icon/outpatient-service/registration-record.png"
           mode="widthFix"
@@ -102,6 +102,12 @@ function goToPay() {
 function goToReport() {
   uni.navigateTo({
     url: "/pages/report/index",
+  });
+}
+
+function goToRegistrationRecord() {
+  uni.navigateTo({
+    url: "/pages/registration-record/index",
   });
 }
 </script>
