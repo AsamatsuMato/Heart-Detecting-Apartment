@@ -27,7 +27,7 @@
           :end="endDate"
           @change="bindDateChange"
         >
-          <view class="uni-input">{{ patientInfo.birthday }}</view>
+          <view>{{ patientInfo.birthday }}</view>
         </picker>
       </view>
       <view class="item">
@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 import CustomButton from "@/components/Custom-Button/index.vue";
-import { IdentityCodeValid } from "./checkIdCard";
+import { IdentityCodeValid } from "@/utils/checkIdCard";
 
 const patientInfo = ref({
   name: "",

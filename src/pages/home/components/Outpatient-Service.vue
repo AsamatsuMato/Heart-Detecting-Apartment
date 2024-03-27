@@ -69,7 +69,7 @@
         ></image>
         <text>透析预缴</text>
       </view>
-      <view class="item">
+      <view class="item" @click="goToMedicalRegistration">
         <image
           src="@/static/icon/outpatient-service/medical-registration.png"
           mode="widthFix"
@@ -114,6 +114,12 @@ function goToRegistrationRecord() {
 function goToDialysisPrepayment() {
   uni.navigateTo({
     url: "/pages/dialysis-prepayment/index",
+  });
+}
+
+function goToMedicalRegistration() {
+  uni.navigateTo({
+    url: "/pages/medical-registration/index",
   });
 }
 </script>

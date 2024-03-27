@@ -30,12 +30,12 @@
         <input v-else type="number" maxlength="8" focus v-model="diyAmount" />
       </view>
     </view>
-    <custom-button content="确认缴费" />
+    <custom-button content="确认缴费" @click="confirmPayment" />
   </view>
 </template>
 
 <script setup lang="ts">
-import CustomButton from "@/components/Custom-Button";
+import CustomButton from "@/components/Custom-Button/index.vue";
 const amountList = ref([
   {
     id: 1,
@@ -85,6 +85,12 @@ function selectAmount(params: number) {
 
 const diyAmount = ref(undefined);
 const isDiy = ref(false);
+
+function confirmPayment() {
+  uni.navigateTo({
+    url: "/pages/outpatient-payment/payment-result/index",
+  });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -139,7 +145,7 @@ const isDiy = ref(false);
   .content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin: 20rpx 0;
+    margin: 20rpx 0 100rpx;
 
     .item {
       flex: 0 0 calc(33.3% - 20rpx);

@@ -123,6 +123,13 @@
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "透析预缴"
       }
+    },
+    {
+      "path": "pages/medical-registration/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "体检登记"
+      }
     }
   ],
   "tabBar": {
