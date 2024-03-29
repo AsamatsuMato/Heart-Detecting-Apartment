@@ -130,6 +130,20 @@
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "体检登记"
       }
+    },
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "用户登录"
+      }
+    },
+    {
+      "path": "pages/logout/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "个人资料"
+      }
     }
   ],
   "tabBar": {

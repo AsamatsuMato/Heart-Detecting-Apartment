@@ -5,7 +5,6 @@ const request = (url: any, method: any, data?: any, header = {}) => {
     uni.showLoading({
       mask: true,
       title: "请求中...",
-      icon: 'none'
     });
     uni.request({
       url: `${url_config}${url}`,
