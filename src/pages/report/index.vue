@@ -2,11 +2,7 @@
   <view class="report">
     <view class="item" v-for="item in reportList" :key="item.reportId">
       <view class="nav">
-        <image
-          class="logo"
-          src="@/static/images/hospital/app-logo.jpg"
-          mode="widthFix"
-        ></image>
+        <image class="logo" src="" mode="widthFix"></image>
         <text>心检寓</text>
       </view>
       <view class="content">

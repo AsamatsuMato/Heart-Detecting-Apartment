@@ -8,17 +8,14 @@
       :interval="carouselConfig.interval"
       :duration="carouselConfig.duration"
     >
-      <swiper-item class="swiper_item">
+      <swiper-item
+        class="swiper_item"
+        v-for="item in props.urlList"
+        :key="item._id"
+      >
         <image
           class="img"
-          src="@/static/images/carousel/carousel1.jpg"
-          mode="scaleToFill"
-        ></image>
-      </swiper-item>
-      <swiper-item class="swiper_item">
-        <image
-          class="img"
-          src="@/static/images/carousel/carousel2.jpg"
+          :src="`${url_config}${item.url}`"
           mode="scaleToFill"
         ></image>
       </swiper-item>
@@ -27,6 +24,13 @@
 </template>
 
 <script setup lang="ts">
+import { url_config } from "@/apis/config";
+const props = defineProps({
+  urlList: {
+    type: Array<any>,
+    default: [],
+  },
+});
 const carouselConfig = ref({
   indicatorDots: false,
   autoplay: true,

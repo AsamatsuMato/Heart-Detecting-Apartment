@@ -3,10 +3,10 @@
     <view class="name">
       <image
         class="logo"
-        src="@/static/images/hospital/app-logo.jpg"
+        :src="`${url_config}${props.hospitalInfo.logo}`"
         mode="widthFix"
       ></image>
-      <text>心检寓</text>
+      <text>{{ props.hospitalInfo.name }}</text>
     </view>
     <view class="phone">
       <image
@@ -14,7 +14,7 @@
         src="@/static/icon/hospital/phone.png"
         mode="widthFix"
       ></image>
-      <text>020-2333333</text>
+      <text>{{ props.hospitalInfo.phone }}</text>
     </view>
     <view class="location">
       <image
@@ -22,12 +22,23 @@
         src="@/static/icon/hospital/location.png"
         mode="widthFix"
       ></image>
-      <text>广东省广州市</text>
+      <text>{{ props.hospitalInfo.location }}</text>
     </view>
   </view>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { url_config } from "@/apis/config";
+import { type HospitalInfoInter } from "../types";
+import { PropType } from "vue";
+
+const props = defineProps({
+  hospitalInfo: {
+    type: Object as PropType<HospitalInfoInter>,
+    default: () => {},
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 .hospital_info {

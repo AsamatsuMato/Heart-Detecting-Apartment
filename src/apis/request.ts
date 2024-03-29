@@ -1,13 +1,14 @@
-import config from "./config.js"; //路径地址
+import {url_config} from "./config"; //路径地址
 
-const request = (url: any, method: any, data: any, header = {}) => {
+const request = (url: any, method: any, data?: any, header = {}) => {
   return new Promise((resolve, reject) => {
     uni.showLoading({
       mask: true,
       title: "请求中...",
+      icon: 'none'
     });
     uni.request({
-      url: `${config.url_config}${url}`,
+      url: `${url_config}${url}`,
       method,
       header: {
         "content-type": "application/json",
@@ -15,8 +16,8 @@ const request = (url: any, method: any, data: any, header = {}) => {
       },
       data,
       success: (res: any) => {
-        if (res.data.code === 0) {
-          resolve(res.data);
+        if (res.data.code === 200) {
+          resolve(res.data.data);
         } else {
           reject(res.data.msg);
         }
