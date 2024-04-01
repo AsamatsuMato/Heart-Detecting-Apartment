@@ -50,17 +50,14 @@
 
 <script setup lang="ts">
 import CustomButton from "@/components/Custom-Button/index.vue";
+import { navigateTo } from "@/router/index";
 
 function goToNotice() {
-  uni.navigateTo({
-    url: "/pages/registered/reg-notice/index",
-  });
+  navigateTo("/pages/registered/reg-notice/index");
 }
 
 function goToConfirm() {
-  uni.navigateTo({
-    url: "/pages/registered/reg-result/index",
-  });
+  navigateTo("/pages/registered/reg-result/index");
 }
 </script>
 

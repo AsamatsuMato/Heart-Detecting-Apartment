@@ -35,6 +35,7 @@
 </template>
 
 <script setup lang="ts">
+import { navigateTo } from "@/router/index";
 const docList = ref([
   {
     docId: "Doc1000",
@@ -56,9 +57,7 @@ const docList = ref([
 ]);
 
 function goToSelectTime() {
-  uni.navigateTo({
-    url: "/pages/registered/select-time/index",
-  });
+  navigateTo("/pages/registered/select-time/index");
 }
 </script>
 

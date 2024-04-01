@@ -21,6 +21,7 @@
 </template>
 
 <script setup lang="ts">
+import { navigateTo } from "@/router/index";
 const paymentList = ref([
   {
     peiId: "PID100100",
@@ -49,9 +50,7 @@ const paymentList = ref([
 ]);
 
 function goToPayDetails() {
-  uni.navigateTo({
-    url: "/pages/outpatient-payment/payment-confirm/index",
-  });
+  navigateTo("/pages/outpatient-payment/payment-confirm/index");
 }
 </script>
 

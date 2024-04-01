@@ -48,6 +48,7 @@
 
 <script setup lang="ts">
 import { getSevenDays } from "../select-doctor/getDate";
+import { navigateTo } from "@/router/index";
 
 onMounted(() => {
   dateList.value = getSevenDays();
@@ -92,9 +93,7 @@ const timeList = ref([
 ]);
 
 function goToConfirm() {
-  uni.navigateTo({
-    url: "/pages/registered/reg-confirm/index",
-  });
+  navigateTo("/pages/registered/reg-confirm/index");
 }
 </script>
 

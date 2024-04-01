@@ -1,9 +1,15 @@
 <template>
   <view class="patient_management">
-    <view class="electronic_health_card" @click="goToDetails">
+    <view
+      v-if="isHavePatient"
+      class="electronic_health_card"
+      @click="goToDetails"
+    >
       <view class="patient_info">
         <text class="name">{{ patientInfo.name }}</text>
-        <text class="outpatientNo">门诊号: {{ patientInfo.outpatientNo }}</text>
+        <text class="outpatientNo"
+          >就诊卡号: {{ patientInfo.medicalCardNo }}</text
+        >
         <text class="idCard">{{ formattedIdCard }}</text>
       </view>
       <view class="qrcode">
@@ -18,24 +24,53 @@
         />
       </view>
     </view>
-    <custom-button content="添加就诊人" @click="goToAdd"></custom-button>
+    <custom-button
+      content="添加就诊人"
+      @click="goToAdd"
+      v-if="!isHavePatient"
+    ></custom-button>
   </view>
 </template>
 
 <script setup lang="ts">
 import CustomButton from "@/components/Custom-Button/index.vue";
 import tkiQrcode from "@/components/tki-qrcode/tki-qrcode.vue";
+import { navigateTo } from "@/router/index";
+import { getPatientInfoApi } from "@/apis/patient/index";
+import { onLoad } from "@dcloudio/uni-app";
 
-const qrcode = ref(tkiQrcode);
+const qrcode = ref();
 
-onMounted(() => {
-  qrcode.value._makeCode();
+onLoad(() => {
+  getPatientInfo();
 });
 
+const isHavePatient = ref(false);
+async function getPatientInfo() {
+  try {
+    const res: any = await getPatientInfoApi();
+    if (res) {
+      isHavePatient.value = true;
+      patientInfo.value = res;
+      nextTick(() => {
+        qrcode.value._makeCode();
+      });
+    } else {
+      isHavePatient.value = false;
+    }
+  } catch (err) {
+    console.log(err);
+    isHavePatient.value = false;
+  }
+}
+
 const patientInfo = ref({
-  name: "张三",
-  outpatientNo: "000140626800",
-  idCard: "445102198712274554",
+  name: "",
+  medicalCardNo: "",
+  idCard: "",
+  birthday: "",
+  phone: "",
+  address: "",
 });
 
 const formattedIdCard = computed(() => {
@@ -48,15 +83,15 @@ const formattedIdCard = computed(() => {
 });
 
 function goToAdd() {
-  uni.navigateTo({
-    url: "/pages/patient-management/add-patient/index",
-  });
+  navigateTo("/pages/patient-management/add-patient/index");
 }
 
 function goToDetails() {
-  uni.navigateTo({
-    url: "/pages/patient-management/patient-info/index",
-  });
+  const { name, idCard, birthday, phone, address, medicalCardNo } =
+    patientInfo.value;
+  navigateTo(
+    `/pages/patient-management/patient-info/index?name=${name}&idCard=${idCard}&birthday=${birthday}&phone=${phone}&address=${address}&medicalCardNo=${medicalCardNo}`
+  );
 }
 </script>
 
@@ -80,7 +115,7 @@ function goToDetails() {
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
-      font-size: 36rpx;
+      font-size: 32rpx;
       font-weight: bold;
       height: 200rpx;
     }

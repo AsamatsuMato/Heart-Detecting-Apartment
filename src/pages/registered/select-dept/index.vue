@@ -16,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+import { navigateTo } from "@/router/index";
 interface deptListInter {
   deptCode: string;
   deptName: string;
@@ -35,9 +36,7 @@ function goToSelectDoc(params: deptListInter) {
   const { deptCode, deptName } = params;
   uni.setStorageSync("deptCode", deptCode);
   uni.setStorageSync("deptName", deptName);
-  uni.navigateTo({
-    url: "/pages/registered/select-doctor/index",
-  });
+  navigateTo("/pages/registered/select-doctor/index");
 }
 </script>
 

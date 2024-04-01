@@ -24,6 +24,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "选择科室"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -31,6 +34,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "选择医生"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -38,6 +44,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "选择预约时间"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -45,6 +54,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "确认预约信息"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -52,6 +64,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "预约须知"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -59,6 +74,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "预约结果"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -66,6 +84,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "管理就诊人"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -78,6 +99,9 @@
             "ocr-id": "plugin://thePlugin/ocr-id"
           }
         }
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -85,6 +109,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "就诊人信息"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -92,6 +119,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "门诊缴费"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -99,6 +129,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "确认缴费信息"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -106,6 +139,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "缴费信息"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -113,6 +149,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "报告查询"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -120,6 +159,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "预约挂号记录"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -127,6 +169,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "透析预缴"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {
@@ -134,6 +179,9 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "体检登记"
+      },
+      "meta": {
+        "auth": true
       }
     },
     {

@@ -33,7 +33,7 @@ function logout() {
         uni.removeStorageSync("avatar");
         uni.removeStorageSync("nickName");
         uni.removeStorageSync("token");
-        uni.navigateTo({
+        uni.reLaunch({
           url: "/pages/about/index",
         });
       }

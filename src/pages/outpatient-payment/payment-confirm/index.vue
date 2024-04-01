@@ -81,6 +81,7 @@
 
 <script setup lang="ts">
 import Drawer from "@/components/Drawer/index.vue";
+import { navigateTo } from "@/router/index";
 const projectList = ref([
   {
     projectId: "3016",
@@ -126,9 +127,7 @@ function pay() {
 }
 
 function goToPay() {
-  uni.navigateTo({
-    url: "/pages/outpatient-payment/payment-result/index",
-  });
+  navigateTo("/pages/outpatient-payment/payment-result/index");
 }
 </script>
 

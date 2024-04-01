@@ -15,8 +15,8 @@
       </view>
       <view class="info_table">
         <view class="item">
-          <view class="label">门诊号</view>
-          <view class="val">{{ patientInfo.outpatientNo }}</view>
+          <view class="label">就诊卡号</view>
+          <view class="val">{{ patientInfo.medicalCardNo }}</view>
         </view>
         <view class="item">
           <view class="label">身份证号</view>
@@ -40,6 +40,7 @@
       background="#FFF"
       border="1rpx solid #E6E6E6"
       color="#226BF3"
+      @click="handleDelete"
     ></custom-button>
   </view>
 </template>
@@ -47,19 +48,26 @@
 <script setup lang="ts">
 import CustomButton from "@/components/Custom-Button/index.vue";
 import tkiQrcode from "@/components/tki-qrcode/tki-qrcode.vue";
+import { onLoad } from "@dcloudio/uni-app";
+import { deletePatientApi } from "@/apis/patient/index";
+import { reLaunch } from "@/router/index";
 
 const qrcode = ref(tkiQrcode);
 
-onMounted(() => {
-  qrcode.value._makeCode();
+onLoad((option: any) => {
+  patientInfo.value = option;
+  nextTick(() => {
+    qrcode.value._makeCode();
+  });
 });
 
 const patientInfo = ref({
-  name: "张三",
-  outpatientNo: "000140626800",
-  idCard: "445102198712274554",
-  phone: "18912345678",
-  address: "广东省广州市",
+  name: "",
+  medicalCardNo: "",
+  idCard: "",
+  phone: "",
+  address: "",
+  birthday: "",
 });
 
 const formattedIdCard = computed(() => {
@@ -75,10 +83,30 @@ const formattedPhone = computed(() => {
   const front = patientInfo.value.phone.substring(0, 3);
   const back = patientInfo.value.phone.substring(7);
 
-  const middleStars = "*".repeat(patientInfo.value.phone.length - 4);
+  const middleStars = "*".repeat(patientInfo.value.phone.length - 7);
 
   return `${front}${middleStars}${back}`;
 });
+
+function handleDelete() {
+  uni.showModal({
+    title: "提示",
+    content: "是否解除绑定该就诊人",
+    success: async (res: any) => {
+      if (res.confirm) {
+        try {
+          await deletePatientApi(patientInfo.value.medicalCardNo);
+          reLaunch("/pages/patient-management/index");
+          uni.showToast({
+            title: "解除绑定成功",
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    },
+  });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -90,7 +118,7 @@ const formattedPhone = computed(() => {
   .content {
     background-color: #fff;
     border-radius: 10px;
-    padding: 20rpx 20rpx 0;
+    padding: 40rpx 20rpx 0;
     display: flex;
     flex-direction: column;
     align-items: center;

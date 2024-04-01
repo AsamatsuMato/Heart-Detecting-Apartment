@@ -55,7 +55,7 @@
         ></textarea>
       </view>
     </view>
-    <custom-button content="建档"></custom-button>
+    <custom-button content="建档" @click="handleAdd"></custom-button>
   </view>
   <Drawer v-model="scanIdCardDrawer" :height="1000">
     <template #content>
@@ -68,6 +68,8 @@
 import CustomButton from "@/components/Custom-Button/index.vue";
 import { IdentityCodeValid } from "@/utils/checkIdCard";
 import Drawer from "@/components/Drawer/index.vue";
+import { addPatientApi } from "@/apis/patient/index";
+import { reLaunch } from "@/router/index";
 
 const patientInfo = ref({
   name: "",
@@ -147,6 +149,30 @@ function scanResult(params: any) {
   }
   scanIdCardDrawer.value = false;
   checkIdCard();
+}
+
+async function handleAdd() {
+  const { name, idCard, birthday, phone, address } = patientInfo.value;
+  if (!name || !idCard || !birthday || !phone || !address) {
+    uni.showToast({
+      title: "有未填的项目",
+      icon: "none",
+    });
+    return;
+  }
+  const data = {
+    name,
+    idCard,
+    birthday,
+    phone,
+    address,
+  };
+  try {
+    await addPatientApi(data);
+    reLaunch("/pages/patient-management/index");
+  } catch (err) {
+    console.log(err);
+  }
 }
 </script>
 

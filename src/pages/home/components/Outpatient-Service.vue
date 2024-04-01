@@ -81,46 +81,34 @@
 </template>
 
 <script setup lang="ts">
+import { navigateTo } from "@/router/index";
+
 function goToRegister() {
-  uni.navigateTo({
-    url: "/pages/registered/select-dept/index",
-  });
+  navigateTo("/pages/registered/select-dept/index");
 }
 
 function goToPatientManagement() {
-  uni.navigateTo({
-    url: "/pages/patient-management/index",
-  });
+  navigateTo("/pages/patient-management/index");
 }
 
 function goToPay() {
-  uni.navigateTo({
-    url: "/pages/outpatient-payment/index",
-  });
+  navigateTo("/pages/outpatient-payment/index");
 }
 
 function goToReport() {
-  uni.navigateTo({
-    url: "/pages/report/index",
-  });
+  navigateTo("/pages/report/index");
 }
 
 function goToRegistrationRecord() {
-  uni.navigateTo({
-    url: "/pages/registration-record/index",
-  });
+  navigateTo("/pages/registration-record/index");
 }
 
 function goToDialysisPrepayment() {
-  uni.navigateTo({
-    url: "/pages/dialysis-prepayment/index",
-  });
+  navigateTo("/pages/dialysis-prepayment/index");
 }
 
 function goToMedicalRegistration() {
-  uni.navigateTo({
-    url: "/pages/medical-registration/index",
-  });
+  navigateTo("/pages/medical-registration/index");
 }
 </script>
 
