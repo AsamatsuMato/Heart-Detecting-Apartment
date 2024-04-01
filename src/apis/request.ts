@@ -12,6 +12,7 @@ const request = (url: any, method: any, data?: any, header = {}) => {
       header: {
         "content-type": "application/json",
         ...header,
+        token: uni.getStorageSync('token')
       },
       data,
       success: (res: any) => {

@@ -17,6 +17,12 @@
           placeholder="请输入患者证件号码"
           @blur="checkIdCard"
         />
+        <image
+          style="width: 50rpx"
+          src="@/static/icon/add-patient/camera.svg"
+          @click="scan"
+          mode="widthFix"
+        ></image>
       </view>
       <view class="item">
         <view class="label" style="margin-right: 70rpx">出生日期</view>
@@ -51,11 +57,17 @@
     </view>
     <custom-button content="建档"></custom-button>
   </view>
+  <Drawer v-model="scanIdCardDrawer" :height="1000">
+    <template #content>
+      <ocr-id type="avatar" imageOutput="roi" @complete="scanResult" />
+    </template>
+  </Drawer>
 </template>
 
 <script setup lang="ts">
 import CustomButton from "@/components/Custom-Button/index.vue";
 import { IdentityCodeValid } from "@/utils/checkIdCard";
+import Drawer from "@/components/Drawer/index.vue";
 
 const patientInfo = ref({
   name: "",
@@ -116,6 +128,25 @@ function checkPhone() {
       duration: 2000,
     });
   }
+}
+
+const scanIdCardDrawer = ref(false);
+function scan() {
+  scanIdCardDrawer.value = true;
+}
+
+function scanResult(params: any) {
+  const { name, num, address } = params.result[0].body[0];
+
+  patientInfo.value.idCard = num;
+  if (!patientInfo.value.name) {
+    patientInfo.value.name = name;
+  }
+  if (!patientInfo.value.address) {
+    patientInfo.value.address = address;
+  }
+  scanIdCardDrawer.value = false;
+  checkIdCard();
 }
 </script>
 

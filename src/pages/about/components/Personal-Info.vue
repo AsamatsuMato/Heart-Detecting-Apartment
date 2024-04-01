@@ -16,7 +16,7 @@ const loginStatus = ref({
 });
 
 onMounted(() => {
-  if (uni.getStorageSync("avatar") || uni.getStorageSync("nickName")) {
+  if (uni.getStorageSync("token")) {
     loginStatus.value.isLogin = true;
   }
 });

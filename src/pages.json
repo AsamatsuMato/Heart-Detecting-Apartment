@@ -72,7 +72,12 @@
       "path": "pages/patient-management/add-patient/index",
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
-        "navigationBarTitleText": "添加就诊人"
+        "navigationBarTitleText": "添加就诊人",
+        "mp-alipay": {
+          "usingComponents": {
+            "ocr-id": "plugin://thePlugin/ocr-id"
+          }
+        }
       }
     },
     {

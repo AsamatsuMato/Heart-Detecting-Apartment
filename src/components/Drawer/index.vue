@@ -43,6 +43,10 @@ watch(
       drawerBottom.value += props.height;
       maskBackground.value = "rgba(0, 0, 0, 0.4)";
       emit("update:modelValue", visibility.value);
+    } else {
+      visibility.value = false;
+      maskBackground.value = "rgba(0, 0, 0, 0)";
+      emit("update:modelValue", visibility.value);
     }
   }
 );
@@ -62,7 +66,7 @@ function maskClick() {
   position: absolute;
   top: 0;
   z-index: 998;
-  width: 100%;
+  width: 750rpx;
   height: 100vh;
   transition: all 0.2s ease-in-out;
 }
@@ -71,22 +75,22 @@ function maskClick() {
   background-color: #fff;
   position: fixed;
   bottom: -400rpx;
-  width: 100%;
+  width: 750rpx;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   transition: all 0.2s ease-in-out;
 
   .title {
-    width: 100%;
-    padding: 20rpx 0 50rpx;
+    width: 750rpx;
+    // padding: 20rpx 0 50rpx;
     display: flex;
     justify-content: center;
     font-weight: bold;
   }
 
   .content {
-    width: 100%;
-    padding: 0 30rpx;
+    width: 750rpx;
+    // padding: 0 30rpx;
   }
 }
 </style>
