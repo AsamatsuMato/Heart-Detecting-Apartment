@@ -52,6 +52,7 @@ async function getPatientInfo() {
     if (res) {
       isHavePatient.value = true;
       patientInfo.value = res;
+      uni.setStorageSync("medicalCardNo", res.medicalCardNo);
       nextTick(() => {
         qrcode.value._makeCode();
       });

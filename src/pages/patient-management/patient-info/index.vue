@@ -57,7 +57,11 @@ const qrcode = ref(tkiQrcode);
 onLoad((option: any) => {
   patientInfo.value = option;
   nextTick(() => {
-    qrcode.value._makeCode();
+    try {
+      qrcode.value._makeCode();
+    } catch (err) {
+      console.log(err);
+    }
   });
 });
 
@@ -96,6 +100,7 @@ function handleDelete() {
       if (res.confirm) {
         try {
           await deletePatientApi(patientInfo.value.medicalCardNo);
+          uni.removeStorageSync("medicalCardNo");
           reLaunch("/pages/patient-management/index");
           uni.showToast({
             title: "解除绑定成功",

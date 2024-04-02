@@ -11,7 +11,7 @@
       </view>
       <view class="item">
         <view class="label">就诊卡号</view>
-        <view class="value">012937808123</view>
+        <view class="value">{{ userInfo.medicalCardNo }}</view>
       </view>
     </view>
     <button @click="logout">退出登录</button>
@@ -20,8 +20,9 @@
 
 <script setup lang="ts">
 const userInfo = ref({
-  avatar: uni.getStorageSync("avatar"),
-  nickName: uni.getStorageSync("nickName"),
+  avatar: uni.getStorageSync("avatar") || "-",
+  nickName: uni.getStorageSync("nickName") || "-",
+  medicalCardNo: uni.getStorageSync("medicalCardNo") || "-",
 });
 
 function logout() {

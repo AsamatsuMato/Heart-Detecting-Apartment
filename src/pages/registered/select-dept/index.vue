@@ -17,22 +17,29 @@
 
 <script setup lang="ts">
 import { navigateTo } from "@/router/index";
-interface deptListInter {
+import { getDepartmentListApi } from "@/apis/registered/index";
+import { onLoad } from "@dcloudio/uni-app";
+
+onLoad(() => {
+  getDepartmentList();
+});
+
+async function getDepartmentList() {
+  try {
+    const res: any = await getDepartmentListApi();
+    deptList.value = res;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+interface DeptListInter {
   deptCode: string;
   deptName: string;
 }
-const deptList = ref<Array<deptListInter>>([
-  {
-    deptCode: "1000",
-    deptName: "肿瘤科",
-  },
-  {
-    deptCode: "1001",
-    deptName: "中心门诊",
-  },
-]);
+const deptList = ref<Array<DeptListInter>>([]);
 
-function goToSelectDoc(params: deptListInter) {
+function goToSelectDoc(params: DeptListInter) {
   const { deptCode, deptName } = params;
   uni.setStorageSync("deptCode", deptCode);
   uni.setStorageSync("deptName", deptName);
