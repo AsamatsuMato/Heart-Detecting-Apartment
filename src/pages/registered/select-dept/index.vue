@@ -40,10 +40,8 @@ interface DeptListInter {
 const deptList = ref<Array<DeptListInter>>([]);
 
 function goToSelectDoc(params: DeptListInter) {
-  const { deptCode, deptName } = params;
-  uni.setStorageSync("deptCode", deptCode);
-  uni.setStorageSync("deptName", deptName);
-  navigateTo("/pages/registered/select-doctor/index");
+  const { deptCode } = params;
+  navigateTo(`/pages/registered/select-doctor/index?deptCode=${deptCode}`);
 }
 </script>
 

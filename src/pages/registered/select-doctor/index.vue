@@ -6,6 +6,7 @@
 </template>
 
 <script setup lang="ts">
+import { onLoad } from "@dcloudio/uni-app";
 import DateSelector from "./components/Date-Selector.vue";
 import DoctorList from "./components/Doctor-List.vue";
 import { getCurrentMonth, getSevenDays } from "./getDate";
@@ -13,17 +14,16 @@ import { getCurrentMonth, getSevenDays } from "./getDate";
 const dateSelectorRef = ref();
 const doctorListRef = ref();
 
-onMounted(() => {
-  dateSelectorRef.value.deptInfo = {
-    deptCode: uni.getStorageSync("deptCode"),
-    deptName: uni.getStorageSync("deptName"),
-  };
+onLoad((option: any) => {
+  nextTick(() => {
+    doctorListRef.value.deptCode = option.deptCode;
 
-  const monthRes = getCurrentMonth();
-  dateSelectorRef.value.monthInfo = monthRes;
+    const monthRes = getCurrentMonth();
+    dateSelectorRef.value.monthInfo = monthRes;
 
-  const selectorRes = getSevenDays();
-  dateSelectorRef.value.selectorInfo = selectorRes;
+    const selectorRes = getSevenDays();
+    dateSelectorRef.value.selectorInfo = selectorRes;
+  });
 });
 </script>
 

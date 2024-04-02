@@ -28,12 +28,8 @@
 </template>
 
 <script setup lang="ts">
-import { type deptListInter, type selectorInfoInter } from "./types";
-
-const deptInfo = ref<deptListInter>({
-  deptCode: "",
-  deptName: "",
-});
+import { type SelectorInfoInter } from "./types";
+import $bus from "@/bus/index";
 
 const monthInfo = ref({
   currentMonth: 0,
@@ -46,10 +42,10 @@ const currentMonth = computed(() => {
   }`;
 });
 
-const selectorInfo = ref<Array<selectorInfoInter>>([]);
+const selectorInfo = ref<Array<SelectorInfoInter>>([]);
 
 function handleSelect(params: string) {
-  selectorInfo.value.forEach((item: selectorInfoInter) => {
+  selectorInfo.value.forEach((item: SelectorInfoInter) => {
     if (item.week === params) {
       item.isActive = true;
     } else {
@@ -58,8 +54,21 @@ function handleSelect(params: string) {
   });
 }
 
+watch(
+  () => selectorInfo,
+  (newVal) => {
+    nextTick(() => {
+      newVal.value.forEach((item: SelectorInfoInter) => {
+        if (item.isActive) {
+          $bus.emit("dateSelect", item.completeDate);
+        }
+      });
+    });
+  },
+  { deep: true }
+);
+
 defineExpose({
-  deptInfo,
   monthInfo,
   selectorInfo,
 });

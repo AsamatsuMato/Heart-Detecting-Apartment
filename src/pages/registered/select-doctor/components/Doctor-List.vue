@@ -2,7 +2,7 @@
   <view class="doctor_list">
     <view class="label"> 坐诊医生 </view>
     <view class="list">
-      <view class="item" v-for="item in docList" :key="item.docId">
+      <view class="item" v-for="item in docList" :key="item.docCode">
         <image
           src="@/static/icon/about/default-head.svg"
           mode="widthFix"
@@ -16,7 +16,7 @@
             <button
               :class="item.remaining === 0 ? 'disabled' : ''"
               :disabled="item.remaining === 0"
-              @click="goToSelectTime"
+              @click="goToSelectTime(item.docCode)"
             >
               <view class="price">￥{{ item.price }}</view
               >|
@@ -36,29 +36,48 @@
 
 <script setup lang="ts">
 import { navigateTo } from "@/router/index";
-const docList = ref([
-  {
-    docId: "Doc1000",
-    docName: "邓庆权",
-    position: "副主任医师",
-    docIntro: "从事泌尿外科专业19年。擅长治疗泌尿系肿瘤、结石、前列腺疾患",
-    price: 12,
-    remaining: 50,
-  },
-  {
-    docId: "Doc1001",
-    docName: "张甲佑",
-    position: "副主任医师",
-    docIntro:
-      "从事临床、门诊诊疗工作47年。诊治大批危、疑、难患者，积累了丰富的临床经验，发表医学论文10余篇，获多项科技奖项。擅长外科，特别是泌尿外科病的诊治，如前列腺病、各种结石、肿瘤、男性病、不育症等",
-    price: 12,
-    remaining: 0,
-  },
-]);
+import $bus from "@/bus/index";
+import { getDoctorListApi } from "@/apis/doctor/index";
+import { type DocListInter } from "./types";
 
-function goToSelectTime() {
-  navigateTo("/pages/registered/select-time/index");
+onMounted(() => {
+  $bus.on("dateSelect", (params: any) => {
+    date.value = params;
+  });
+});
+
+const deptCode = ref("");
+const date = ref("");
+
+watch(date, () => {
+  nextTick(() => {
+    getDoctorList();
+  });
+});
+
+async function getDoctorList() {
+  docList.value.length = 0;
+  const data = {
+    deptCode: deptCode.value,
+    date: date.value,
+  };
+  try {
+    const res: any = await getDoctorListApi(data);
+    docList.value = res;
+  } catch (err) {
+    console.log(err);
+  }
 }
+
+const docList = ref<Array<DocListInter>>([]);
+
+function goToSelectTime(docCode: string) {
+  navigateTo(`/pages/registered/select-time/index?docCode=${docCode}`);
+}
+
+defineExpose({
+  deptCode,
+});
 </script>
 
 <style lang="scss" scoped>

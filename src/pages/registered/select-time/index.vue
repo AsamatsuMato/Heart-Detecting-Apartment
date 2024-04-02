@@ -47,19 +47,33 @@
 </template>
 
 <script setup lang="ts">
+import { onLoad } from "@dcloudio/uni-app";
 import { getSevenDays } from "../select-doctor/getDate";
 import { navigateTo } from "@/router/index";
+import { getDoctorInfoApi } from "@/apis/doctor/index";
 
-onMounted(() => {
-  dateList.value = getSevenDays();
+onLoad(async (option: any) => {
+  dateList.value = await getSevenDays();
+  getDoctorInfo(option.docCode);
 });
 
+async function getDoctorInfo(docCode: string) {
+  try {
+    const { docName, position, docIntro }: any =
+      await getDoctorInfoApi(docCode);
+    docInfo.value.docName = docName;
+    docInfo.value.position = position;
+    docInfo.value.docIntro = docIntro;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 const docInfo = ref({
-  docName: "张甲佑",
-  position: "副主任医师",
+  docName: "",
+  position: "",
   isCollect: false,
-  docIntro:
-    "从事临床、门诊诊疗工作47年。诊治大批危、疑、难患者，积累了丰富的临床经验，发表医学论文10余篇，获多项科技奖项。擅长外科，特别是泌尿外科病的诊治，如前列腺病、各种结石、肿瘤、男性病、不育症等",
+  docIntro: "",
 });
 
 const dateList = ref();
