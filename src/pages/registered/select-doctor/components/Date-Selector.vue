@@ -65,7 +65,7 @@ watch(
       });
     });
   },
-  { deep: true }
+  { deep: true },
 );
 
 defineExpose({

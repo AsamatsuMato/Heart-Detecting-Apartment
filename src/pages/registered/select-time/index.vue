@@ -106,7 +106,7 @@ watch(
       }
     });
   },
-  { deep: true, immediate: false }
+  { deep: true, immediate: false },
 );
 
 function handleSelectDate(params: any) {

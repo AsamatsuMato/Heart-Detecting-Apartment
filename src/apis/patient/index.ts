@@ -12,6 +12,6 @@ export function addPatientApi(data: AddPatientInter) {
 export function deletePatientApi(medicalCardNo: string) {
   return request(
     `/hda/patient/deletePatient?medicalCardNo=${medicalCardNo}`,
-    "GET"
+    "GET",
   );
 }
