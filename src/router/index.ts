@@ -5,13 +5,20 @@ function navigateTo(url: string) {
     return `/${item.path}` === url;
   });
 
-  const { data } = my.getStorageSync({ key: "token" });
+  const token = my.getStorageSync({ key: "token" });
+  const medicalCardNo = my.getStorageSync({ key: "medicalCardNo" });
 
   if (route?.meta?.auth) {
-    if (data) {
-      uni.navigateTo({
-        url,
-      });
+    if (token.data) {
+      if (medicalCardNo.data) {
+        uni.navigateTo({
+          url,
+        });
+      } else {
+        uni.reLaunch({
+          url: "/pages/patient-management/add-patient/index",
+        });
+      }
     } else {
       uni.reLaunch({
         url: "/pages/login/index",
@@ -29,10 +36,20 @@ function reLaunch(url: string) {
     return `/${item.path}` === url;
   });
 
-  const { data } = my.getStorageSync({ key: "token" });
+  const token = my.getStorageSync({ key: "token" });
+  const medicalCardNo = my.getStorageSync({ key: "medicalCardNo" });
 
   if (route?.meta?.auth) {
-    if (data) {
+    if (token.data) {
+      if (medicalCardNo.data) {
+        uni.reLaunch({
+          url,
+        });
+      } else {
+        uni.reLaunch({
+          url: "/pages/patient-management/add-patient/index",
+        });
+      }
       uni.reLaunch({
         url,
       });
