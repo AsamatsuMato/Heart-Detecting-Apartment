@@ -32,11 +32,14 @@ function getUserInfo() {
       const data = {
         authCode: res.authCode,
       };
-      const { avatar, nickName, token }: any =
+      const { avatar, nickName, token, medicalCardNo }: any =
         await authorizedAccessTokenApi(data);
-      uni.setStorageSync("avatar", avatar);
-      uni.setStorageSync("nickName", nickName);
-      uni.setStorageSync("token", token);
+      my.setStorageSync({ key: "avatar", data: avatar });
+      my.setStorageSync({ key: "nickName", data: nickName });
+      my.setStorageSync({ key: "token", data: token });
+      if (medicalCardNo) {
+        my.setStorageSync({ key: "medicalCardNo", data: medicalCardNo });
+      }
       uni.reLaunch({
         url: "/pages/about/index",
       });

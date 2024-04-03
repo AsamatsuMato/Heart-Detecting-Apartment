@@ -72,7 +72,9 @@ async function getDoctorList() {
 const docList = ref<Array<DocListInter>>([]);
 
 function goToSelectTime(docCode: string) {
-  navigateTo(`/pages/registered/select-time/index?docCode=${docCode}`);
+  navigateTo(
+    `/pages/registered/select-time/index?docCode=${docCode}&date=${date.value}`
+  );
 }
 
 defineExpose({

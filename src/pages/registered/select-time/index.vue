@@ -24,18 +24,18 @@
           :class="item.isActive ? 'active' : ''"
           v-for="item in dateList"
           :key="item.week"
-          @click="handleSelectDate(item)"
+          @click="handleSelectDate(item.completeDate)"
           >{{ item.completeDate }} 周{{ item.week }}</view
         >
       </scroll-view>
       <scroll-view scroll-y="true" class="right">
         <view
           class="item"
-          v-for="item in timeList"
-          :key="item.timePeriodId"
+          v-for="(item, index) in timeList"
+          :key="index"
           @click="goToConfirm"
         >
-          <view>{{ item.timePeriod }}</view>
+          <view>{{ item.time }}</view>
           <view v-if="item.remaining !== 0" style="color: #226bf3"
             >剩余{{ item.remaining }}</view
           >
@@ -50,11 +50,16 @@
 import { onLoad } from "@dcloudio/uni-app";
 import { getSevenDays } from "../select-doctor/getDate";
 import { navigateTo } from "@/router/index";
-import { getDoctorInfoApi } from "@/apis/doctor/index";
+import { getDoctorInfoApi, getSchedulingApi } from "@/apis/doctor/index";
+import { type TimeListInter } from "./types";
+
+const docCode = ref("");
 
 onLoad(async (option: any) => {
+  docCode.value = option.docCode;
   dateList.value = await getSevenDays();
-  getDoctorInfo(option.docCode);
+  await getDoctorInfo(option.docCode);
+  handleSelectDate(option.date);
 });
 
 async function getDoctorInfo(docCode: string) {
@@ -69,6 +74,20 @@ async function getDoctorInfo(docCode: string) {
   }
 }
 
+async function getScheduling(date: string) {
+  timeList.value.length = 0;
+  const data = {
+    docCode: docCode.value,
+    date,
+  };
+  try {
+    const res: any = await getSchedulingApi(data);
+    timeList.value = res;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 const docInfo = ref({
   docName: "",
   position: "",
@@ -78,9 +97,21 @@ const docInfo = ref({
 
 const dateList = ref();
 
+watch(
+  dateList,
+  (newVal) => {
+    newVal.forEach((item: any) => {
+      if (item.isActive) {
+        getScheduling(item.completeDate);
+      }
+    });
+  },
+  { deep: true, immediate: false }
+);
+
 function handleSelectDate(params: any) {
   dateList.value.forEach((item: any) => {
-    if (params === item) {
+    if (params === item.completeDate) {
       item.isActive = true;
     } else {
       item.isActive = false;
@@ -88,23 +119,7 @@ function handleSelectDate(params: any) {
   });
 }
 
-const timeList = ref([
-  {
-    timePeriodId: 1,
-    timePeriod: "08:00-08:30",
-    remaining: 0,
-  },
-  {
-    timePeriodId: 2,
-    timePeriod: "08:30-09:00",
-    remaining: 10,
-  },
-  {
-    timePeriodId: 3,
-    timePeriod: "09:00-09:30",
-    remaining: 40,
-  },
-]);
+const timeList = ref<Array<TimeListInter>>([]);
 
 function goToConfirm() {
   navigateTo("/pages/registered/reg-confirm/index");
