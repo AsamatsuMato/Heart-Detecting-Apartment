@@ -33,7 +33,7 @@
           class="item"
           v-for="(item, index) in timeList"
           :key="index"
-          @click="goToConfirm"
+          @click="goToConfirm(item.time)"
         >
           <view>{{ item.time }}</view>
           <view v-if="item.remaining !== 0" style="color: #226bf3"
@@ -106,7 +106,7 @@ watch(
       }
     });
   },
-  { deep: true, immediate: false },
+  { deep: true, immediate: false }
 );
 
 function handleSelectDate(params: any) {
@@ -121,8 +121,13 @@ function handleSelectDate(params: any) {
 
 const timeList = ref<Array<TimeListInter>>([]);
 
-function goToConfirm() {
-  navigateTo("/pages/registered/reg-confirm/index");
+function goToConfirm(timePeriod: string) {
+  const { completeDate } = dateList.value.find((item: any) => {
+    return item.isActive === true;
+  });
+  navigateTo(
+    `/pages/registered/reg-confirm/index?docCode=${docCode.value}&date=${completeDate}&timePeriod=${timePeriod}`
+  );
 }
 </script>
 

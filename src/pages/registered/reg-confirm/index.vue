@@ -7,37 +7,37 @@
           mode="widthFix"
         ></image>
         <view>
-          <text class="doc_name">张甲佑</text>
-          <text class="doc_position">副主任医师</text>
+          <text class="doc_name">{{ detailsInfo.docName }}</text>
+          <text class="doc_position">{{ detailsInfo.position }}</text>
         </view>
       </view>
       <view class="item">
         <view class="label">就诊科室</view>
-        <view class="val">外科</view>
+        <view class="val">{{ detailsInfo.deptName }}</view>
       </view>
       <view class="item">
         <view class="label">就诊日期</view>
-        <view class="val">2024-03-11</view>
+        <view class="val">{{ detailsInfo.date }}</view>
       </view>
       <view class="item">
-        <view class="label">候诊时间</view>
-        <view class="val">9:00-9:30</view>
+        <view class="label">就诊时段</view>
+        <view class="val">{{ detailsInfo.timePeriod }}</view>
       </view>
       <view class="item">
         <view class="label"
           >费&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用</view
         >
-        <view class="val" style="color: #f00">￥12</view>
+        <view class="val" style="color: #f00">￥{{ detailsInfo.price }}</view>
       </view>
     </view>
     <view class="personal_info">
       <view class="item">
-        <view class="label">就&nbsp;诊&nbsp;人</view>
-        <view class="val">张三</view>
+        <view class="label">就&nbsp;&nbsp;诊&nbsp;&nbsp;人</view>
+        <view class="val">{{ detailsInfo.patientName }}</view>
       </view>
       <view class="item">
         <view class="label">就诊卡号</view>
-        <view class="val">00015890729</view>
+        <view class="val">{{ detailsInfo.medicalCardNo }}</view>
       </view>
     </view>
     <view class="notice">
@@ -51,13 +51,64 @@
 <script setup lang="ts">
 import CustomButton from "@/components/Custom-Button/index.vue";
 import { navigateTo } from "@/router/index";
+import {
+  getRegisteredConfirmInfoApi,
+  confirmRegisteredApi,
+} from "@/apis/registered/index";
+import { onLoad } from "@dcloudio/uni-app";
+
+const doctorCode = ref("");
+onLoad((option: any) => {
+  const { docCode, date, timePeriod } = option;
+  doctorCode.value = docCode;
+  getRegisteredConfirmInfo(docCode);
+  detailsInfo.value.date = date;
+  detailsInfo.value.timePeriod = timePeriod;
+});
+
+async function getRegisteredConfirmInfo(docCode: string) {
+  try {
+    const res: any = await getRegisteredConfirmInfoApi(docCode);
+    const { docName, position, price, deptName } = res;
+    detailsInfo.value.docName = docName;
+    detailsInfo.value.position = position;
+    detailsInfo.value.price = price;
+    detailsInfo.value.deptName = deptName;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const detailsInfo = ref({
+  docName: "",
+  position: "",
+  price: 0,
+  deptName: "",
+  patientName: uni.getStorageSync("patientName"),
+  medicalCardNo: uni.getStorageSync("medicalCardNo") as string,
+  date: "",
+  timePeriod: "",
+});
 
 function goToNotice() {
   navigateTo("/pages/registered/reg-notice/index");
 }
 
-function goToConfirm() {
-  navigateTo("/pages/registered/reg-result/index");
+async function goToConfirm() {
+  const { date, timePeriod, price, medicalCardNo } = detailsInfo.value;
+  const data = {
+    docCode: doctorCode.value,
+    date,
+    timePeriod,
+    price,
+    medicalCardNo,
+  };
+  try {
+    await confirmRegisteredApi(data);
+    navigateTo("/pages/registered/reg-result/index");
+  } catch (err) {
+    console.log(err);
+  }
 }
 </script>
 

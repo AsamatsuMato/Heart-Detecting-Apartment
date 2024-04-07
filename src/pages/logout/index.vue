@@ -31,9 +31,7 @@ function logout() {
     content: "是否退出登录",
     success: (res: any) => {
       if (res.confirm) {
-        uni.removeStorageSync("avatar");
-        uni.removeStorageSync("nickName");
-        uni.removeStorageSync("token");
+        uni.clearStorageSync();
         uni.reLaunch({
           url: "/pages/about/index",
         });

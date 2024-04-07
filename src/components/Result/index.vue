@@ -60,6 +60,7 @@ function backToHome() {
 
     .status {
       font-size: 40rpx;
+      font-weight: bold;
     }
 
     .extra {
