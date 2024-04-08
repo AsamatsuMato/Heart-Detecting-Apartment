@@ -15,3 +15,14 @@ export function getRegisteredConfirmInfoApi(docCode: string) {
 export function confirmRegisteredApi(data: ConfirmRegisteredInter) {
   return request("/hda/registered/confirmRegistered", "POST", data);
 }
+
+export function getRegisteredRecordApi(medicalCardNo: string) {
+  return request(
+    `/hda/registered/getRegisteredRecord?medicalCardNo=${medicalCardNo}`,
+    "GET"
+  );
+}
+
+export function getRegStatusListApi() {
+  return request("/hda/registered/getRegStatusList", "GET");
+}

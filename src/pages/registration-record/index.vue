@@ -1,27 +1,31 @@
 <template>
   <view class="registration_record">
-    <view class="item" v-for="item in recordList" :key="item.recordId">
+    <view class="item" v-for="item in recordList" :key="item.regCode">
       <view class="nav">
         <view class="left">
-          <text>{{ item.department }}</text>
-          <text>{{ item.doctorName }}</text>
+          <text>{{ item.deptName }}</text>
+          <text>{{ item.docName }}</text>
         </view>
         <view class="right">
-          <text>预约成功</text>
+          <view v-for="status in statusList" :style="{ color: status.color }">
+            <template v-if="item.status === status.key">
+              {{ status.value }}
+            </template>
+          </view>
         </view>
       </view>
       <view class="content">
         <view class="line">
           <text>就诊科室</text>
-          <text>{{ item.department }}</text>
+          <text>{{ item.deptName }}</text>
         </view>
         <view class="line">
           <text>就诊时间</text>
-          <text>{{ item.date }}</text>
+          <text>{{ item.date }} {{ item.timePeriod }}</text>
         </view>
         <view class="line">
           <text>就&nbsp;&nbsp;诊&nbsp;&nbsp;人</text>
-          <text>{{ item.name }}</text>
+          <text>{{ item.patientName }}</text>
         </view>
       </view>
     </view>
@@ -29,42 +33,37 @@
 </template>
 
 <script setup lang="ts">
-const statusList = [
-  {
-    key: -1,
-    value: "已退号",
-  },
-  {
-    key: 0,
-    value: "预约失败",
-  },
-  {
-    key: 1,
-    value: "预约成功",
-  },
-  {
-    key: 2,
-    value: "已完成",
-  },
-];
-const recordList = ref([
-  {
-    recordId: "R100100",
-    department: "肿瘤科",
-    doctorName: "张甲佑",
-    date: "2024-03-20 9:30",
-    name: "张三",
-    status: 1,
-  },
-  {
-    recordId: "R100101",
-    department: "肿瘤科",
-    doctorName: "张甲佑",
-    date: "2024-03-22 14:30",
-    name: "李四",
-    status: 2,
-  },
-]);
+import {
+  getRegisteredRecordApi,
+  getRegStatusListApi,
+} from "@/apis/registered/index";
+import { onLoad } from "@dcloudio/uni-app";
+import { type RecordListInter } from "./types";
+
+onLoad(async () => {
+  await getRegStatusList();
+  await getRegisteredRecord();
+});
+
+async function getRegStatusList() {
+  try {
+    statusList = (await getRegStatusListApi()) as any;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function getRegisteredRecord() {
+  const medicalCardNo = uni.getStorageSync("medicalCardNo");
+  try {
+    recordList.value = (await getRegisteredRecordApi(medicalCardNo)) as any;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+let statusList: Array<any> = [];
+const recordList = ref<Array<RecordListInter>>([]);
 </script>
 
 <style lang="scss" scoped>
@@ -72,6 +71,7 @@ const recordList = ref([
   padding: 20rpx;
   background-color: #f5f5f5;
   font-size: 28rpx;
+  min-height: 97vh;
 
   .item {
     background-color: #fff;

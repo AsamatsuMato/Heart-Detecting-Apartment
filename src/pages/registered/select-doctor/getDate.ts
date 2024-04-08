@@ -33,15 +33,20 @@ export function getSevenDays() {
   // 获取当前日期
   const today = new Date();
 
+  // 格式化日期为两位数的字符串，如果不足两位则在前面补0
+  function formatDatePart(value: any) {
+    return value.toString().padStart(2, "0");
+  }
+
   // 获取今天是周几
   const todayWeekdayName = getWeekdayName(today);
 
   selectorArr.push({
     week: todayWeekdayName,
     date: today.getDate(),
-    completeDate: `${today.getFullYear()}-${
+    completeDate: `${today.getFullYear()}-${formatDatePart(
       today.getMonth() + 1
-    }-${today.getDate()}`,
+    )}-${formatDatePart(today.getDate())}`,
     isActive: true,
   });
 
@@ -59,7 +64,9 @@ export function getSevenDays() {
     selectorArr.push({
       week: nextDayWeekdayName,
       date: nextDayDate,
-      completeDate: `${nextDayYear}-${nextDayMonth}-${nextDayDate}`,
+      completeDate: `${nextDayYear}-${formatDatePart(
+        nextDayMonth
+      )}-${formatDatePart(nextDayDate)}`,
       isActive: false,
     });
   }
