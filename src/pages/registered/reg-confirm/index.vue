@@ -104,8 +104,8 @@ async function goToConfirm() {
     medicalCardNo,
   };
   try {
-    await confirmRegisteredApi(data);
-    navigateTo("/pages/registered/reg-result/index");
+    const res: any = await confirmRegisteredApi(data);
+    navigateTo(`/pages/registered/reg-result/index?regCode=${res.regCode}`);
   } catch (err) {
     console.log(err);
   }

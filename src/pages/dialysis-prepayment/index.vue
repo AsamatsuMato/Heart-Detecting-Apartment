@@ -3,11 +3,11 @@
     <view class="info">
       <view class="card_no">
         <text>就诊卡号:</text>
-        <text>78013743123</text>
+        <text>{{ userInfo.medicalCardNo }}</text>
       </view>
       <view class="balance">
         <text>卡内余额</text>
-        <text>￥0</text>
+        <text>￥{{ userInfo.balance }}</text>
       </view>
     </view>
     <view class="label">在线充值</view>
@@ -19,7 +19,7 @@
         :key="item.id"
         @click="selectAmount(item.id)"
       >
-        <text>{{ item.value }}</text>
+        <text>￥{{ item.value }}</text>
       </view>
       <view
         class="item"
@@ -27,39 +27,106 @@
         @click="selectAmount(6)"
       >
         <text v-if="!isDiy">自定义</text>
-        <input v-else type="number" maxlength="8" focus v-model="diyAmount" />
+        <input
+          v-else
+          type="number"
+          maxlength="8"
+          focus
+          v-model.number="diyAmount"
+        />
       </view>
     </view>
-    <custom-button content="确认缴费" @click="confirmPayment" />
+    <custom-button content="确认缴费" @click="pwdDrawer = true" />
+  </view>
+  <view class="pwd_drawer">
+    <Drawer v-model="pwdDrawer" :height="350">
+      <template #title>
+        <text>透析预缴</text>
+      </template>
+      <template #content>
+        <view class="tip">
+          <text>请输入支付密码</text>
+          <image
+            v-if="!isShowPwd"
+            src="@/static/icon/eyes/eye-false.svg"
+            mode="widthFix"
+            @click="changePwdStatus"
+          ></image>
+          <image
+            v-else
+            src="@/static/icon/eyes/eye-true.svg"
+            mode="widthFix"
+            @click="changePwdStatus"
+          ></image>
+        </view>
+        <pwd-input
+          v-model="password"
+          :show-val="isShowPwd"
+          @confirm="confirmPayment"
+        />
+      </template>
+    </Drawer>
   </view>
 </template>
 
 <script setup lang="ts">
 import CustomButton from "@/components/Custom-Button/index.vue";
+import { dialysisPrepaymentApi } from "@/apis/prepayment/index";
+import { getUserInfoApi } from "@/apis/user/index";
+import { onLoad } from "@dcloudio/uni-app";
+import Drawer from "@/components/Drawer/index.vue";
+import PwdInput from "@/components/PwdInput/index.vue";
+
+const pwdDrawer = ref(false);
+const password = ref("");
+const isShowPwd = ref(false);
+
+function changePwdStatus() {
+  isShowPwd.value = !isShowPwd.value;
+}
+
+onLoad(() => {
+  getUserInfo();
+});
+
+const userInfo = ref({
+  medicalCardNo: uni.getStorageSync("medicalCardNo"),
+  balance: 0,
+});
+
+async function getUserInfo() {
+  try {
+    const res: any = await getUserInfoApi();
+    userInfo.value.balance = res.balance;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 const amountList = ref([
   {
     id: 1,
-    value: "￥50",
-    isActive: false,
+    value: 50,
+    isActive: true,
   },
   {
     id: 2,
-    value: "￥100",
+    value: 100,
     isActive: false,
   },
   {
     id: 3,
-    value: "￥200",
+    value: 200,
     isActive: false,
   },
   {
     id: 4,
-    value: "￥500",
+    value: 500,
     isActive: false,
   },
   {
     id: 5,
-    value: "￥1000",
+    value: 1000,
     isActive: false,
   },
 ]);
@@ -86,10 +153,41 @@ function selectAmount(params: number) {
 const diyAmount = ref(undefined);
 const isDiy = ref(false);
 
-function confirmPayment() {
-  uni.navigateTo({
-    url: "/pages/outpatient-payment/payment-result/index",
-  });
+async function confirmPayment() {
+  if (isDiy.value) {
+    if (diyAmount.value) {
+      dialysisPrepayment(diyAmount.value);
+    } else {
+      uni.showToast({
+        title: "请输入金额",
+        icon: "fail",
+      });
+    }
+  } else {
+    amountList.value.forEach(async (item: any) => {
+      if (item.isActive) {
+        dialysisPrepayment(item.value);
+      }
+    });
+  }
+}
+
+async function dialysisPrepayment(rechargeAmount: number) {
+  const data = {
+    rechargeAmount,
+    paymentPwd: password.value,
+  };
+  try {
+    await dialysisPrepaymentApi(data);
+    uni.redirectTo({
+      url: "/pages/dialysis-prepayment/index",
+    });
+    uni.showToast({
+      title: "预缴费成功",
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }
 </script>
 
@@ -114,12 +212,12 @@ function confirmPayment() {
       flex: 1;
       padding: 0 40rpx;
       border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .card_no {
-      display: flex;
-      align-items: center;
-
       text:nth-child(1) {
         margin-right: 20rpx;
       }
@@ -127,9 +225,6 @@ function confirmPayment() {
 
     .balance {
       background-color: #f2f2f2;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
 
       text:nth-child(2) {
         color: #ee0509;
@@ -169,6 +264,33 @@ function confirmPayment() {
       background-color: #dce7f6;
       border-color: #226bf3;
       color: #226bf3;
+    }
+  }
+}
+
+.pwd_drawer {
+  :deep(.drawer) {
+    .title {
+      padding: 20rpx 0;
+    }
+
+    .content {
+      flex-direction: column;
+      font-size: 28rpx;
+
+      .tip {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text {
+          margin-right: 50rpx;
+        }
+
+        image {
+          width: 30rpx;
+        }
+      }
     }
   }
 }

@@ -53,7 +53,7 @@
           src="@/static/icon/outpatient-service/payment-record.png"
           mode="widthFix"
         ></image>
-        <text>缴费记录</text>
+        <text>预缴记录</text>
       </view>
       <view class="item" @click="goToPatientManagement">
         <image

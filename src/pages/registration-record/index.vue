@@ -1,6 +1,11 @@
 <template>
   <view class="registration_record">
-    <view class="item" v-for="item in recordList" :key="item.regCode">
+    <view
+      class="item"
+      v-for="item in recordList"
+      :key="item.regCode"
+      @click="goToDetails(item.regCode)"
+    >
       <view class="nav">
         <view class="left">
           <text>{{ item.deptName }}</text>
@@ -39,6 +44,7 @@ import {
 } from "@/apis/registered/index";
 import { onLoad } from "@dcloudio/uni-app";
 import { type RecordListInter } from "./types";
+import { navigateTo } from "@/router/index";
 
 onLoad(async () => {
   await getRegStatusList();
@@ -54,9 +60,11 @@ async function getRegStatusList() {
 }
 
 async function getRegisteredRecord() {
-  const medicalCardNo = uni.getStorageSync("medicalCardNo");
+  const data = {
+    medicalCardNo: uni.getStorageSync("medicalCardNo"),
+  };
   try {
-    recordList.value = (await getRegisteredRecordApi(medicalCardNo)) as any;
+    recordList.value = (await getRegisteredRecordApi(data)) as any;
   } catch (err) {
     console.log(err);
   }
@@ -64,6 +72,12 @@ async function getRegisteredRecord() {
 
 let statusList: Array<any> = [];
 const recordList = ref<Array<RecordListInter>>([]);
+
+function goToDetails(regCode: string) {
+  navigateTo(
+    `/pages/registration-record/record-details/index?regCode=${regCode}`
+  );
+}
 </script>
 
 <style lang="scss" scoped>

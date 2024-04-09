@@ -5,7 +5,10 @@
       <view class="status">{{ title }}</view>
       <view class="extra" v-html="content"></view>
     </view>
-    <custom-button :content="mainButtonMessage"></custom-button>
+    <custom-button
+      :content="mainButtonMessage"
+      @click="handleMainButton"
+    ></custom-button>
     <custom-button
       content="返回首页"
       @click="backToHome"
@@ -34,10 +37,16 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["goToRegisteredDetails"]);
+
 function backToHome() {
   uni.reLaunch({
     url: "/pages/home/index",
   });
+}
+
+function handleMainButton() {
+  emit("goToRegisteredDetails");
 }
 </script>
 

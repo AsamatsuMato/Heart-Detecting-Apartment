@@ -118,7 +118,7 @@
       "path": "pages/outpatient-payment/index",
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
-        "navigationBarTitleText": "门诊缴费"
+        "navigationBarTitleText": "待缴费列表"
       },
       "meta": {
         "auth": true
@@ -196,6 +196,16 @@
       "style": {
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "个人资料"
+      }
+    },
+    {
+      "path": "pages/registration-record/record-details/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "预约挂号详情"
+      },
+      "meta": {
+        "auth": true
       }
     }
   ],

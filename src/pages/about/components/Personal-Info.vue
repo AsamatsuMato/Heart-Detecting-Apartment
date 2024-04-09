@@ -8,6 +8,8 @@
 </template>
 
 <script setup lang="ts">
+import { navigateTo } from "@/router/index";
+
 const loginStatus = ref({
   isLogin: false,
   avatar:
@@ -23,13 +25,9 @@ onMounted(() => {
 
 function goToLogin() {
   if (loginStatus.value.isLogin) {
-    uni.navigateTo({
-      url: "/pages/logout/index",
-    });
+    navigateTo("/pages/logout/index");
   } else {
-    uni.navigateTo({
-      url: "/pages/login/index",
-    });
+    navigateTo("/pages/login/index");
   }
 }
 </script>

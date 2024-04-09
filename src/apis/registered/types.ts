@@ -5,3 +5,9 @@ export interface ConfirmRegisteredInter {
   price: number;
   medicalCardNo: string;
 }
+
+export interface GetRegisteredRecordInter {
+  medicalCardNo: string;
+  regCode?: string;
+  status?: number;
+}

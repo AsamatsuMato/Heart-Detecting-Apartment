@@ -48,7 +48,7 @@ watch(
       maskBackground.value = "rgba(0, 0, 0, 0)";
       emit("update:modelValue", visibility.value);
     }
-  },
+  }
 );
 
 const emit = defineEmits(["update:modelValue"]);
@@ -65,6 +65,7 @@ function maskClick() {
 .mask {
   position: absolute;
   top: 0;
+  left: 0;
   z-index: 998;
   width: 750rpx;
   height: 100vh;
@@ -82,15 +83,17 @@ function maskClick() {
 
   .title {
     width: 750rpx;
-    // padding: 20rpx 0 50rpx;
     display: flex;
     justify-content: center;
     font-weight: bold;
+    font-size: 36rpx;
   }
 
   .content {
     width: 750rpx;
     // padding: 0 30rpx;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

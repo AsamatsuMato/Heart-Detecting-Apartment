@@ -1,19 +1,22 @@
 <template>
   <view class="outpatient_payment">
-    <view class="label">待缴费项目</view>
     <view class="content">
-      <view class="item" v-for="item in paymentList" :key="item.peiId">
+      <view class="item" v-for="item in paymentList" :key="item._id">
         <view class="item_left">
-          <text class="project_name">{{ item.projectName }}</text>
-          <view class="project_info">
-            <text class="dept">{{ item.projectDept }}</text>
-            <text class="doc_name">{{ item.doctor }}</text>
+          <view class="project_name">
+            <template v-if="item.regCode"> 挂号费 </template>
+            <template v-if="item.peiCode"> 体检费 </template>
+            <template v-if="item.HosCode"> 住院费 </template>
           </view>
-          <text class="date">{{ item.date }}</text>
+          <view class="project_info">
+            <text class="dept">{{ item.deptName }}</text>
+            <text class="doc_name">{{ item.docName }}</text>
+          </view>
+          <text class="date">{{ item.appointmentTime }}</text>
         </view>
         <view class="item_right">
           <text class="price">{{ item.price }}</text>
-          <button @click="goToPayDetails">去缴费</button>
+          <button @click="goToPayDetails">查 看 详 情</button>
         </view>
       </view>
     </view>
@@ -22,32 +25,29 @@
 
 <script setup lang="ts">
 import { navigateTo } from "@/router/index";
-const paymentList = ref([
-  {
-    peiId: "PID100100",
-    projectName: "西药费",
-    projectDept: "消化内科",
-    doctor: "蒋峰",
-    date: "2024-03-20 15:30",
-    price: 120,
-  },
-  {
-    peiId: "PID100101",
-    projectName: "检验费",
-    projectDept: "消化内科",
-    doctor: "蒋峰",
-    date: "2024-03-20 15:30",
-    price: 60,
-  },
-  {
-    peiId: "PID100102",
-    projectName: "预约挂号",
-    projectDept: "消化内科",
-    doctor: "蒋峰",
-    date: "2024-03-20 15:30",
-    price: 10,
-  },
-]);
+import { getRegisteredRecordApi } from "@/apis/registered/index";
+import { onLoad } from "@dcloudio/uni-app";
+
+onLoad(() => {
+  getRegisteredRecord();
+});
+
+async function getRegisteredRecord() {
+  try {
+    const data = {
+      medicalCardNo: uni.getStorageSync("medicalCardNo"),
+      status: 1,
+    };
+    const res: any = await getRegisteredRecordApi(data);
+    res.forEach((item: any) => {
+      paymentList.value.push(item);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const paymentList: any = ref([]);
 
 function goToPayDetails() {
   navigateTo("/pages/outpatient-payment/payment-confirm/index");
@@ -58,11 +58,7 @@ function goToPayDetails() {
 .outpatient_payment {
   padding: 20rpx;
   background-color: #f5f5f5;
-
-  .label {
-    font-size: 36rpx;
-    font-weight: bold;
-  }
+  min-height: 97vh;
 
   .content {
     .item {

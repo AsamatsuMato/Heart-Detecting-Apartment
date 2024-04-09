@@ -1,5 +1,8 @@
 import request from "../request";
-import { type ConfirmRegisteredInter } from "./types";
+import {
+  type ConfirmRegisteredInter,
+  type GetRegisteredRecordInter,
+} from "./types";
 
 export function getDepartmentListApi() {
   return request("/hda/department/getDepartmentList", "GET");
@@ -16,13 +19,18 @@ export function confirmRegisteredApi(data: ConfirmRegisteredInter) {
   return request("/hda/registered/confirmRegistered", "POST", data);
 }
 
-export function getRegisteredRecordApi(medicalCardNo: string) {
+export function getRegisteredRecordApi(data: GetRegisteredRecordInter) {
   return request(
-    `/hda/registered/getRegisteredRecord?medicalCardNo=${medicalCardNo}`,
-    "GET"
+    "/hda/registered/getRegisteredRecord?medicalCardNo",
+    "POST",
+    data
   );
 }
 
 export function getRegStatusListApi() {
   return request("/hda/registered/getRegStatusList", "GET");
+}
+
+export function cancelAppointmentApi(regCode: string) {
+  return request(`/hda/registered/cancelAppointment?regCode=${regCode}`, "GET");
 }
