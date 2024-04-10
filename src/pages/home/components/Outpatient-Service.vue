@@ -48,7 +48,7 @@
         ></image>
         <text>报告查询</text>
       </view>
-      <view class="item">
+      <view class="item" @click="goToPrepaymentRecord">
         <image
           src="@/static/icon/outpatient-service/payment-record.png"
           mode="widthFix"
@@ -109,6 +109,10 @@ function goToDialysisPrepayment() {
 
 function goToMedicalRegistration() {
   navigateTo("/pages/medical-registration/index");
+}
+
+function goToPrepaymentRecord() {
+  navigateTo("/pages/prepayment-record/index");
 }
 </script>
 

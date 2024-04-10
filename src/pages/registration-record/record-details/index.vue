@@ -33,7 +33,7 @@
       </view>
     </view>
     <view class="btn_group" v-if="detailsInfo.status === 1">
-      <custom-button content="去 缴 费" />
+      <custom-button content="去 缴 费" @click="pwdDrawer = true" />
       <custom-button
         content="取 消 预 约"
         background="#E5F0FE"
@@ -43,6 +43,35 @@
       ></custom-button>
     </view>
   </view>
+  <view class="pwd_drawer">
+    <Drawer v-model="pwdDrawer" :height="350">
+      <template #title>
+        <text>挂号缴费</text>
+      </template>
+      <template #content>
+        <view class="tip">
+          <text>请输入支付密码</text>
+          <image
+            v-if="!isShowPwd"
+            src="@/static/icon/eyes/eye-false.svg"
+            mode="widthFix"
+            @click="changePwdStatus"
+          ></image>
+          <image
+            v-else
+            src="@/static/icon/eyes/eye-true.svg"
+            mode="widthFix"
+            @click="changePwdStatus"
+          ></image>
+        </view>
+        <pwd-input
+          v-model="password"
+          :show-val="isShowPwd"
+          @confirm="confirmPayment"
+        />
+      </template>
+    </Drawer>
+  </view>
 </template>
 
 <script setup lang="ts">
@@ -50,9 +79,20 @@ import { onLoad } from "@dcloudio/uni-app";
 import {
   getRegisteredRecordApi,
   cancelAppointmentApi,
+  registeredPaymentApi,
 } from "@/apis/registered/index";
-import { type RecordListInter } from "../types";
 import CustomButton from "@/components/Custom-Button/index.vue";
+import Drawer from "@/components/Drawer/index.vue";
+import PwdInput from "@/components/PwdInput/index.vue";
+import { reLaunch } from "@/router/index";
+
+const pwdDrawer = ref(false);
+const password = ref("");
+const isShowPwd = ref(false);
+
+function changePwdStatus() {
+  isShowPwd.value = !isShowPwd.value;
+}
 
 const code = ref("");
 onLoad((option: any) => {
@@ -92,7 +132,7 @@ function cancelAppointment() {
     success: async (res) => {
       if (res.confirm) {
         try {
-          const res: any = await cancelAppointmentApi(code.value);
+          await cancelAppointmentApi(code.value);
           uni.reLaunch({
             url: "/pages/home/index",
           });
@@ -105,6 +145,23 @@ function cancelAppointment() {
       }
     },
   });
+}
+
+async function confirmPayment() {
+  try {
+    const data = {
+      regCode: code.value,
+      price: detailsInfo.value.price,
+      paymentPwd: password.value,
+    };
+    await registeredPaymentApi(data);
+    reLaunch("/pages/registration-record/index");
+    uni.showToast({
+      title: "缴费成功",
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }
 </script>
 
@@ -137,6 +194,33 @@ function cancelAppointment() {
 
     :deep(.custom_button) {
       margin: 20rpx 0;
+    }
+  }
+}
+
+.pwd_drawer {
+  :deep(.drawer) {
+    .title {
+      padding: 20rpx 0;
+    }
+
+    .content {
+      flex-direction: column;
+      font-size: 28rpx;
+
+      .tip {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text {
+          margin-right: 50rpx;
+        }
+
+        image {
+          width: 30rpx;
+        }
+      }
     }
   }
 }

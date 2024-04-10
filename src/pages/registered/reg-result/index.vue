@@ -13,7 +13,7 @@ import { onLoad } from "@dcloudio/uni-app";
 import { navigateTo } from "@/router/index";
 
 const content = ref(
-  `您已预约成功<br>请您使用本人身份证或电子健康码等凭证按时就诊<br>到院就诊请先到自助机取号排队!`
+  `您已预约成功<br>请您使用本人身份证或电子健康码等凭证按时就诊<br>到院就诊请先到自助机取号排队!`,
 );
 
 const code = ref("");
@@ -23,7 +23,7 @@ onLoad((option: any) => {
 
 function goToRegisteredDetails() {
   navigateTo(
-    `/pages/registration-record/record-details/index?regCode=${code.value}`
+    `/pages/registration-record/record-details/index?regCode=${code.value}`,
   );
 }
 </script>

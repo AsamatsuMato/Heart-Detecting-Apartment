@@ -207,6 +207,16 @@
       "meta": {
         "auth": true
       }
+    },
+    {
+      "path": "pages/prepayment-record/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "透析预缴记录"
+      },
+      "meta": {
+        "auth": true
+      }
     }
   ],
   "tabBar": {

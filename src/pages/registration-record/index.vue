@@ -75,7 +75,7 @@ const recordList = ref<Array<RecordListInter>>([]);
 
 function goToDetails(regCode: string) {
   navigateTo(
-    `/pages/registration-record/record-details/index?regCode=${regCode}`
+    `/pages/registration-record/record-details/index?regCode=${regCode}`,
   );
 }
 </script>

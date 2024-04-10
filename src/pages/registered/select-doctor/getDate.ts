@@ -45,7 +45,7 @@ export function getSevenDays() {
     week: todayWeekdayName,
     date: today.getDate(),
     completeDate: `${today.getFullYear()}-${formatDatePart(
-      today.getMonth() + 1
+      today.getMonth() + 1,
     )}-${formatDatePart(today.getDate())}`,
     isActive: true,
   });
@@ -65,7 +65,7 @@ export function getSevenDays() {
       week: nextDayWeekdayName,
       date: nextDayDate,
       completeDate: `${nextDayYear}-${formatDatePart(
-        nextDayMonth
+        nextDayMonth,
       )}-${formatDatePart(nextDayDate)}`,
       isActive: false,
     });

@@ -92,7 +92,7 @@ function goToDetails() {
   const { name, idCard, birthday, phone, address, medicalCardNo } =
     patientInfo.value;
   navigateTo(
-    `/pages/patient-management/patient-info/index?name=${name}&idCard=${idCard}&birthday=${birthday}&phone=${phone}&address=${address}&medicalCardNo=${medicalCardNo}`
+    `/pages/patient-management/patient-info/index?name=${name}&idCard=${idCard}&birthday=${birthday}&phone=${phone}&address=${address}&medicalCardNo=${medicalCardNo}`,
   );
 }
 </script>

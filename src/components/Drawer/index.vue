@@ -48,7 +48,7 @@ watch(
       maskBackground.value = "rgba(0, 0, 0, 0)";
       emit("update:modelValue", visibility.value);
     }
-  }
+  },
 );
 
 const emit = defineEmits(["update:modelValue"]);

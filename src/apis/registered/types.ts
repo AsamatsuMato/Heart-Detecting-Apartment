@@ -11,3 +11,9 @@ export interface GetRegisteredRecordInter {
   regCode?: string;
   status?: number;
 }
+
+export interface RegisteredPaymentInter {
+  regCode: string;
+  price: number;
+  paymentPwd: string;
+}
