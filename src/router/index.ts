@@ -10,7 +10,7 @@ function navigateTo(url: string) {
 
   if (route?.meta?.auth) {
     if (token.data) {
-      if (medicalCardNo.data) {
+      if (medicalCardNo.data || route.meta.noBind) {
         uni.navigateTo({
           url,
         });
@@ -41,7 +41,7 @@ function reLaunch(url: string) {
 
   if (route?.meta?.auth) {
     if (token.data) {
-      if (medicalCardNo.data) {
+      if (medicalCardNo.data || route.meta.noBind) {
         uni.reLaunch({
           url,
         });

@@ -69,7 +69,7 @@
         ></image>
         <text>透析预缴</text>
       </view>
-      <view class="item" @click="goToMedicalRegistration">
+      <view class="item" @click="goToPhysicalExaminations">
         <image
           src="@/static/icon/outpatient-service/medical-registration.png"
           mode="widthFix"
@@ -107,8 +107,8 @@ function goToDialysisPrepayment() {
   navigateTo("/pages/dialysis-prepayment/index");
 }
 
-function goToMedicalRegistration() {
-  navigateTo("/pages/medical-registration/index");
+function goToPhysicalExaminations() {
+  navigateTo("/pages/physical-examination/index");
 }
 
 function goToPrepaymentRecord() {

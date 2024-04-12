@@ -27,15 +27,13 @@
       </view>
       <view class="item">
         <text>出生日期</text>
-        <picker
-          mode="date"
-          :value="userInfo.birthday"
-          :start="startDate"
-          :end="endDate"
-          @change="bindDateChange"
-        >
-          <view>{{ userInfo.birthday }}</view>
-        </picker>
+        <uni-datetime-picker
+          type="date"
+          :clear-icon="false"
+          :border="false"
+          v-model="userInfo.birthday"
+          placeholder="请选择出生日期"
+        />
       </view>
       <view class="item">
         <text>联系电话</text>
@@ -51,31 +49,21 @@
       <view class="item">
         <text>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</text>
         <view class="userInfo_radios">
-          <radio-group class="radio_group" @change="radioChange($event, 1)">
-            <label v-for="(item, index) in genderListItems" :key="index">
-              <radio
-                :value="item.value"
-                :checked="item.checked ? true : false"
-                style="transform: scale(0.9)"
-              />
-              <view>{{ item.name }}</view>
-            </label>
-          </radio-group>
+          <uni-data-checkbox
+            v-model="userInfo.gender"
+            :localdata="genderListItems"
+            selectedColor="#7b81ff"
+          ></uni-data-checkbox>
         </view>
       </view>
       <view class="item">
         <text>婚姻状态</text>
         <view class="userInfo_radios">
-          <radio-group class="radio_group" @change="radioChange($event, 2)">
-            <label v-for="(item, index) in maritalStatusListItems" :key="index">
-              <radio
-                :value="item.value"
-                :checked="item.checked ? true : false"
-                style="transform: scale(0.9)"
-              />
-              <view>{{ item.name }}</view>
-            </label>
-          </radio-group>
+          <uni-data-checkbox
+            v-model="userInfo.maritalStatus"
+            :localdata="maritalStatusListItems"
+            selectedColor="#7b81ff"
+          ></uni-data-checkbox>
         </view>
       </view>
       <view class="textarea_birthPlace">
@@ -97,23 +85,16 @@
         <view class="flex_special_top">
           <text>既往病史</text>
           <view class="medical_history_radios">
-            <radio-group class="radio_group" @change="radioChange($event, 3)">
-              <label
-                v-for="(item, index) in pastMedicalHistoryListItems"
-                :key="index"
-              >
-                <radio
-                  :value="item.value"
-                  :checked="item.checked ? true : false"
-                  style="transform: scale(0.9)"
-                />{{ item.name }}
-              </label>
-            </radio-group>
+            <uni-data-checkbox
+              v-model="medicalHistory.pastMedicalHistory"
+              :localdata="pastMedicalHistoryListItems"
+              selectedColor="#7b81ff"
+            ></uni-data-checkbox>
           </view>
         </view>
         <view
           class="textarea_box"
-          v-if="medicalHistory.pastMedicalHistory === '1'"
+          v-if="medicalHistory.pastMedicalHistory === 1"
         >
           <textarea
             v-model="medicalHistory.pastMedicalHistoryContent"
@@ -127,24 +108,14 @@
         <view class="flex_special_top">
           <text>过敏史</text>
           <view class="medical_history_radios">
-            <radio-group class="radio_group" @change="radioChange($event, 4)">
-              <label
-                v-for="(item, index) in allergicHistoryListItems"
-                :key="index"
-              >
-                <radio
-                  :value="item.value"
-                  :checked="item.checked ? true : false"
-                  style="transform: scale(0.9)"
-                />{{ item.name }}
-              </label>
-            </radio-group>
+            <uni-data-checkbox
+              v-model="medicalHistory.allergicHistory"
+              :localdata="allergicHistoryListItems"
+              selectedColor="#7b81ff"
+            ></uni-data-checkbox>
           </view>
         </view>
-        <view
-          class="textarea_box"
-          v-if="medicalHistory.allergicHistory === '1'"
-        >
+        <view class="textarea_box" v-if="medicalHistory.allergicHistory === 1">
           <textarea
             v-model="medicalHistory.allergicHistoryContent"
             placeholder="请输入过敏史"
@@ -155,90 +126,85 @@
       </view>
     </view>
 
-    <custom-button content="提交" @click="" />
+    <custom-button content="提交" background="#7b81ff" @click="submit" />
   </view>
 </template>
 
 <script setup lang="ts">
 import { IdentityCodeValid } from "@/utils/checkIdCard";
 import CustomButton from "@/components/Custom-Button/index.vue";
+import moment from "moment";
+import { bookPhysicalExaminationApi } from "@/apis/physicalExamination/index";
+import { onLoad } from "@dcloudio/uni-app";
+import { reLaunch } from "@/router";
+
+const packageCode = ref("");
+const date = ref("");
+const price = ref(0);
+onLoad((option: any) => {
+  packageCode.value = option.packageCode;
+  date.value = option.date;
+  price.value = option.price;
+});
 
 const userInfo = ref({
   name: "",
   idCard: "",
-  birthday: getDate({ format: true }),
+  birthday: moment().format("YYYY-MM-DD"),
   phone: "",
-  nation: "",
-  gender: "1",
-  maritalStatus: "0",
+  gender: 1,
+  maritalStatus: 0,
   birthPlace: "",
 });
 
 const medicalHistory = ref({
-  pastMedicalHistory: "0",
+  pastMedicalHistory: 0,
   pastMedicalHistoryContent: "",
-  allergicHistory: "0",
+  allergicHistory: 0,
   allergicHistoryContent: "",
-});
-
-const formItems = ref({
-  name: "姓名",
-  idCard: "身份证号码",
-  birthday: "出生日期",
-  phone: "联系电话",
-  nation: "民族",
-  gender: "性别",
-  maritalStatus: "婚姻状态",
-  birthPlace: "出生地",
-  pastMedicalHistoryContent: "既往病史内容",
-  allergicHistoryContent: "过敏史内容",
 });
 
 const genderListItems = ref([
   {
-    value: "1",
-    name: "男",
-    checked: "true",
+    value: 1,
+    text: "男",
   },
   {
-    value: "2",
-    name: "女",
+    value: 0,
+    text: "女",
   },
 ]);
 
 const maritalStatusListItems = ref([
   {
-    value: "0",
-    name: "未婚",
-    checked: "true",
+    value: 0,
+    text: "未婚",
   },
   {
-    value: "1",
-    name: "已婚",
+    value: 1,
+    text: "已婚",
   },
 ]);
 
 const pastMedicalHistoryListItems = ref([
   {
-    value: "0",
-    name: "无",
-    checked: "true",
+    value: 0,
+    text: "无",
   },
   {
-    value: "1",
-    name: "有",
+    value: 1,
+    text: "有",
   },
 ]);
 
 const allergicHistoryListItems = ref([
   {
-    value: "0",
-    name: "无",
-    checked: "true",
+    value: 0,
+    text: "无",
   },
   {
-    value: "1",
-    name: "有",
+    value: 1,
+    text: "有",
   },
 ]);
 
@@ -278,54 +244,47 @@ function checkPhone(params: string) {
   }
 }
 
-function radioChange(e: any, flag: number) {
-  const { value } = e.detail;
-  switch (flag) {
-    case 1:
-      userInfo.value.gender = value;
-      break;
-    case 2:
-      userInfo.value.maritalStatus = value;
-      break;
-    case 3:
-      medicalHistory.value.pastMedicalHistory = value;
-      break;
-    case 4:
-      medicalHistory.value.allergicHistory = value;
-      break;
+async function submit() {
+  const { name, idCard, birthday, phone, gender, maritalStatus, birthPlace } =
+    userInfo.value;
+  const {
+    pastMedicalHistory,
+    pastMedicalHistoryContent,
+    allergicHistory,
+    allergicHistoryContent,
+  } = medicalHistory.value;
+  const data = {
+    packageCode: packageCode.value,
+    date: date.value,
+    price: price.value,
+    name,
+    idCard,
+    birthday,
+    phone,
+    gender,
+    maritalStatus,
+    birthPlace,
+    ...(pastMedicalHistory === 1 ? { pastMedicalHistoryContent } : {}),
+    ...(allergicHistory === 1 ? { allergicHistoryContent } : {}),
+    allergicHistoryContent,
+  };
+  try {
+    await bookPhysicalExaminationApi(data);
+    reLaunch("/pages/home/index");
+    uni.showToast({
+      title: "体检预约成功",
+    });
+  } catch (err) {
+    console.log(err);
   }
-}
-
-const startDate = getDate("start");
-const endDate = getDate("end");
-
-function getDate(type: any) {
-  const date = new Date();
-  let year = date.getFullYear();
-  let month: number | string = date.getMonth() + 1;
-  let day: number | string = date.getDate();
-
-  if (type === "start") {
-    year = year - 60;
-  } else if (type === "end") {
-    year = year + 2;
-  }
-  month = month > 9 ? month : "0" + month;
-  day = day > 9 ? day : "0" + day;
-  return `${year}-${month}-${day}`;
-}
-
-function bindDateChange(params: any) {
-  userInfo.value.birthday = params.detail.value;
 }
 </script>
 
 <style lang="scss" scoped>
 .medical_registration {
   padding: 20rpx;
-  background: linear-gradient(to bottom, #226bf3, #f5f5f5 300rpx);
+  background: linear-gradient(to bottom, #7b81ff, #f2f3ff 50vh);
   font-size: 32upx;
-  font-family: "PingFang SC";
 
   .userInfo,
   .medical_history,
@@ -360,47 +319,40 @@ function bindDateChange(params: any) {
 
       .interaction {
         width: 400rpx;
-      }
-
-      /* .interaction /deep/ .cl-select__icon {
-        display: none;
-      }
-
-      .interaction /deep/ .cl-input {
-        width: 450rpx;
-      }
-
-      .interaction /deep/ .cl-select {
-        width: 400rpx;
-        font-size: 32upx;
         padding: 0;
       }
 
-      .interaction /deep/ .cl-select__placeholder {
+      :deep(.uniui-calendar) {
+        display: none;
+      }
+
+      :deep(.uni-date__x-input) {
         font-size: 32upx;
-        color: #808080;
-      } */
+        color: #000;
+      }
 
       .userInfo_radios {
         width: 400rpx;
 
-        .radio_group {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
+        :deep(.checklist-group) {
+          .checklist-box {
+            margin-left: 5rpx;
+            margin-right: 60rpx;
 
-          radio {
-            margin-right: 20rpx;
-          }
+            .radio__inner {
+              width: 32upx;
+              height: 32upx;
 
-          label {
-            display: flex;
-            align-items: center;
-          }
+              .radio__inner-icon {
+                width: 20upx;
+                height: 20upx;
+              }
+            }
 
-          view {
-            width: 100rpx;
+            .checklist-text {
+              font-size: 32upx;
+              color: #000;
+            }
           }
         }
       }
@@ -410,27 +362,27 @@ function bindDateChange(params: any) {
         display: flex;
         justify-content: flex-end;
 
-        .radio_group {
-          width: 250rpx;
-          display: flex;
-          justify-content: space-between;
+        :deep(.checklist-group) {
+          .checklist-box {
+            margin-left: 5rpx;
+            margin-right: 60rpx;
 
-          radio {
-            margin-right: 20rpx;
-          }
+            .radio__inner {
+              width: 32upx;
+              height: 32upx;
 
-          view {
-            width: 100rpx;
+              .radio__inner-icon {
+                width: 20upx;
+                height: 20upx;
+              }
+            }
+
+            .checklist-text {
+              font-size: 32upx;
+              color: #000;
+            }
           }
         }
-      }
-
-      .tips {
-        border: 1rpx solid #ff68a5;
-        border-radius: 10rpx;
-        color: #ff68a5;
-        padding: 10rpx;
-        background-color: #fff6fa;
       }
 
       .textarea {
@@ -491,7 +443,6 @@ function bindDateChange(params: any) {
 
       text {
         width: 180rpx;
-        // color: #585858;
         font-size: 32upx;
       }
 

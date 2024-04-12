@@ -175,13 +175,36 @@
       }
     },
     {
-      "path": "pages/medical-registration/index",
+      "path": "pages/physical-examination/index",
       "style": {
-        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarBackgroundColor": "#7B81FF",
+        "navigationBarTitleText": "体检套餐列表"
+      },
+      "meta": {
+        "auth": true,
+        "noBind": true
+      }
+    },
+    {
+      "path": "pages/physical-examination/package-details/index",
+      "style": {
+        "navigationBarBackgroundColor": "#7B81FF",
+        "navigationBarTitleText": "套餐详情"
+      },
+      "meta": {
+        "auth": true,
+        "noBind": true
+      }
+    },
+    {
+      "path": "pages/physical-examination/medical-registration/index",
+      "style": {
+        "navigationBarBackgroundColor": "#7B81FF",
         "navigationBarTitleText": "体检登记"
       },
       "meta": {
-        "auth": true
+        "auth": true,
+        "noBind": true
       }
     },
     {

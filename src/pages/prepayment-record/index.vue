@@ -35,6 +35,7 @@ import {
   deletePrepaymentRecordApi,
 } from "@/apis/prepayment/index";
 import { onLoad } from "@dcloudio/uni-app";
+import { type RecordListInter } from "./types";
 
 const options = [
   {
@@ -58,7 +59,7 @@ async function getPrepaymentRecordList() {
   }
 }
 
-const recordList = ref([]);
+const recordList = ref<Array<RecordListInter>>([]);
 
 async function del(_: any, orderCode: string) {
   try {

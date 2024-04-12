@@ -106,7 +106,7 @@ watch(
       }
     });
   },
-  { deep: true, immediate: false },
+  { deep: true, immediate: false }
 );
 
 function handleSelectDate(params: any) {
@@ -126,7 +126,7 @@ function goToConfirm(timePeriod: string) {
     return item.isActive === true;
   });
   navigateTo(
-    `/pages/registered/reg-confirm/index?docCode=${docCode.value}&date=${completeDate}&timePeriod=${timePeriod}`,
+    `/pages/registered/reg-confirm/index?docCode=${docCode.value}&date=${completeDate}&timePeriod=${timePeriod}`
   );
 }
 </script>
@@ -175,7 +175,7 @@ function goToConfirm(timePeriod: string) {
   .selector {
     display: flex;
     margin-top: 20rpx;
-    min-height: 60vh;
+    max-height: 60vh;
 
     .left {
       width: 40vw;
