@@ -1,5 +1,8 @@
 import request from "../request";
-import { type BookPhysicalExaminationInter } from "./types";
+import {
+  type BookPhysicalExaminationInter,
+  type PhyExaPaymentInter,
+} from "./types";
 
 export function getPhysicalExaminationListApi(packageCode?: string) {
   return request(
@@ -30,4 +33,8 @@ export function getReservedDetailsApi(phyExaCode: string) {
     `/hda/package/getReservedDetails?phyExaCode=${phyExaCode}`,
     "GET"
   );
+}
+
+export function phyExaPaymentApi(data: PhyExaPaymentInter) {
+  return request("/hda/order/phyExaPayment", "POST", data);
 }

@@ -17,3 +17,10 @@ export interface RegisteredPaymentInter {
   price: number;
   paymentPwd: string;
 }
+
+export interface CancelAppointmentInter {
+  regCode: string;
+  date: string;
+  docCode: string;
+  timePeriod: string;
+}

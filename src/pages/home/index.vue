@@ -2,7 +2,7 @@
   <view class="home">
     <carousel :urlList="urlList" />
     <outpatient-service />
-    <hospital-service />
+    <hospital-service ref="hospitalServiceRef" />
     <copyright />
   </view>
 </template>
@@ -13,15 +13,31 @@ import Copyright from "@/components/Copyright/index.vue";
 import OutpatientService from "./components/Outpatient-Service.vue";
 import HospitalService from "./components/Hospital-Service.vue";
 import { getCarouselApi } from "@/apis/home/index";
+import { getHospitalInfoApi } from "@/apis/hospital/index";
 
 onMounted(() => {
   getCarousel();
+  getHospitalInfo();
 });
 
 const urlList = ref<Array<string>>([]);
 async function getCarousel() {
   const res: any = await getCarouselApi();
   urlList.value = res;
+}
+
+const hospitalServiceRef = ref(HospitalService);
+
+async function getHospitalInfo() {
+  try {
+    const res: any = await getHospitalInfoApi();
+    hospitalServiceRef.value.hospitalInfo.latitude = res.latitude;
+    hospitalServiceRef.value.hospitalInfo.longitude = res.longitude;
+    hospitalServiceRef.value.hospitalInfo.name = res.name;
+    hospitalServiceRef.value.hospitalInfo.address = res.location;
+  } catch (err) {
+    console.log(err);
+  }
 }
 </script>
 

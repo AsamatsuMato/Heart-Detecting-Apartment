@@ -12,7 +12,7 @@
         ></image>
         <text>医院动态</text>
       </view>
-      <view class="grid_item">
+      <view class="grid_item" @click="handleGPS">
         <image
           src="@/static/icon/hospital/hospital-service/navigation.png"
           mode="widthFix"
@@ -26,7 +26,7 @@
         ></image>
         <text>就医指南</text>
       </view>
-      <view class="grid_item">
+      <view class="grid_item" @click="healthEncyclopedia">
         <image
           src="@/static/icon/hospital/hospital-service/health-encyclopedia.png"
           mode="widthFix"
@@ -37,7 +37,40 @@
   </view>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const hospitalInfo = ref({
+  latitude: 0,
+  longitude: 0,
+  name: "",
+  address: "",
+});
+
+function handleGPS() {
+  const { latitude, longitude, name, address } = hospitalInfo.value;
+  uni.openLocation({
+    latitude,
+    longitude,
+    name,
+    address,
+    success: (res) => {
+      console.log(res);
+    },
+    fail: (err) => {
+      console.log(err);
+    },
+  });
+}
+
+function healthEncyclopedia() {
+  uni.showToast({
+    title: "功能开发中...",
+  });
+}
+
+defineExpose({
+  hospitalInfo,
+});
+</script>
 
 <style lang="scss" scoped>
 .hospital_info {

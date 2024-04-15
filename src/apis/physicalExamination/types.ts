@@ -13,3 +13,9 @@ export interface BookPhysicalExaminationInter {
   pastMedicalHistoryContent?: string;
   allergicHistoryContent?: string;
 }
+
+export interface PhyExaPaymentInter {
+  phyExaCode: string;
+  price: number | undefined;
+  paymentPwd: string;
+}

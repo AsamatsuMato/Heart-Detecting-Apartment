@@ -42,16 +42,85 @@
         </view>
       </view>
     </view>
+    <custom-button
+      content="缴 费"
+      @click="pwdDrawer = true"
+      v-if="detailsInfo.status === 1"
+      background="#7b81ff"
+      border="1rpx solid #7b81ff"
+    ></custom-button>
+  </view>
+  <view class="pwd_drawer">
+    <Drawer v-model="pwdDrawer" :height="350">
+      <template #title>
+        <text>体检缴费</text>
+      </template>
+      <template #content>
+        <view class="tip">
+          <text>请输入支付密码</text>
+          <image
+            v-if="!isShowPwd"
+            src="@/static/icon/eyes/eye-false.svg"
+            mode="widthFix"
+            @click="changePwdStatus"
+          ></image>
+          <image
+            v-else
+            src="@/static/icon/eyes/eye-true.svg"
+            mode="widthFix"
+            @click="changePwdStatus"
+          ></image>
+        </view>
+        <pwd-input
+          v-model="password"
+          :show-val="isShowPwd"
+          @confirm="confirmPayment"
+        />
+      </template>
+    </Drawer>
   </view>
 </template>
 
 <script lang="ts" setup>
 import tkiQrcode from "@/components/tki-qrcode/tki-qrcode.vue";
+import Drawer from "@/components/Drawer/index.vue";
+import PwdInput from "@/components/PwdInput/index.vue";
+import CustomButton from "@/components/Custom-Button/index.vue";
 import { onLoad } from "@dcloudio/uni-app";
-import { getReservedDetailsApi } from "@/apis/physicalExamination/index";
+import {
+  getReservedDetailsApi,
+  phyExaPaymentApi,
+} from "@/apis/physicalExamination/index";
+import { reLaunch } from "@/router";
 
 const phyExaCode = ref("");
 const flag = ref("");
+
+const pwdDrawer = ref(false);
+const password = ref("");
+const isShowPwd = ref(false);
+
+function changePwdStatus() {
+  isShowPwd.value = !isShowPwd.value;
+}
+
+async function confirmPayment() {
+  const data = {
+    phyExaCode: phyExaCode.value,
+    price: detailsInfo.value.price,
+    paymentPwd: password.value,
+  };
+  try {
+    await phyExaPaymentApi(data);
+    reLaunch("/pages/home/index");
+    uni.showToast({
+      title: "缴费成功",
+      icon: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 const qrcode = ref();
 
@@ -95,7 +164,7 @@ async function getReservedDetails() {
 
 <style lang="scss" scoped>
 .container {
-  padding: 0 20rpx 20rpx;
+  padding: 20rpx 20rpx;
   background: linear-gradient(to bottom, #7b81ff, #f2f3ff 50vh);
   min-height: 97vh;
 
@@ -178,10 +247,35 @@ async function getReservedDetails() {
     }
   }
 
-  .back {
-    margin-top: 50rpx;
-    background-color: #7b81ff;
-    color: #fff;
+  :deep(.custom_button) {
+    margin: 40rpx 0;
+  }
+}
+
+.pwd_drawer {
+  :deep(.drawer) {
+    .title {
+      padding: 20rpx 0;
+    }
+
+    .content {
+      flex-direction: column;
+      font-size: 28rpx;
+
+      .tip {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text {
+          margin-right: 50rpx;
+        }
+
+        image {
+          width: 30rpx;
+        }
+      }
+    }
   }
 }
 </style>

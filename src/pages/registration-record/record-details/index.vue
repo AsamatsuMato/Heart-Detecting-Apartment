@@ -116,6 +116,7 @@ async function getRegisteredRecord() {
 const detailsInfo = ref({
   patientName: "",
   medicalCardNo: "",
+  docCode: "",
   docName: "",
   deptName: "",
   date: "",
@@ -131,8 +132,14 @@ function cancelAppointment() {
     content: "是否取消预约",
     success: async (res) => {
       if (res.confirm) {
+        const data = {
+          regCode: code.value,
+          date: detailsInfo.value.date,
+          docCode: detailsInfo.value.docCode,
+          timePeriod: detailsInfo.value.timePeriod,
+        };
         try {
-          await cancelAppointmentApi(code.value);
+          await cancelAppointmentApi(data);
           uni.reLaunch({
             url: "/pages/home/index",
           });

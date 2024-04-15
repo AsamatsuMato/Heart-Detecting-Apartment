@@ -31,7 +31,10 @@
           </view>
         </view>
         <view class="content_right">
-          <button v-if="item.status === 1" @click="goToPay(item.phyExaCode)">
+          <button
+            v-if="item.status === 1 || item.status === 2"
+            @click="goToPay(item.phyExaCode)"
+          >
             查看详情
           </button>
           <button v-if="item.status === 3" @click="viewReport(item.reportUrl)">

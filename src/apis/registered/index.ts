@@ -3,6 +3,7 @@ import {
   type ConfirmRegisteredInter,
   type GetRegisteredRecordInter,
   type RegisteredPaymentInter,
+  type CancelAppointmentInter,
 } from "./types";
 
 export function getDepartmentListApi() {
@@ -12,7 +13,7 @@ export function getDepartmentListApi() {
 export function getRegisteredConfirmInfoApi(docCode: string) {
   return request(
     `/hda/registered/getRegisteredConfirmInfo?docCode=${docCode}`,
-    "GET",
+    "GET"
   );
 }
 
@@ -28,8 +29,8 @@ export function getRegStatusListApi() {
   return request("/hda/registered/getRegStatusList", "GET");
 }
 
-export function cancelAppointmentApi(regCode: string) {
-  return request(`/hda/registered/cancelAppointment?regCode=${regCode}`, "GET");
+export function cancelAppointmentApi(data: CancelAppointmentInter) {
+  return request("/hda/registered/cancelAppointment", "POST", data);
 }
 
 export function registeredPaymentApi(data: RegisteredPaymentInter) {
