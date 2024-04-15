@@ -2,7 +2,6 @@
   <view class="hospital">
     <carousel :url-list="urlList" />
     <hospital-info :hospital-info="hospitalInfo" />
-    <hospital-service />
     <hospital-introduction :hospital-info="hospitalInfo" />
     <copyright />
   </view>
@@ -12,7 +11,6 @@
 import Carousel from "@/components/Carousel/index.vue";
 import Copyright from "@/components/Copyright/index.vue";
 import HospitalInfo from "./components/Hospital-Info.vue";
-import HospitalService from "./components/Hospital-Service.vue";
 import HospitalIntroduction from "./components/Hospital-Introduction.vue";
 import { getCarouselApi } from "@/apis/home/index";
 import { getHospitalInfoApi } from "@/apis/hospital/index";

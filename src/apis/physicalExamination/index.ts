@@ -17,3 +17,17 @@ export function getPhyExaSchedulingApi() {
 export function bookPhysicalExaminationApi(data: BookPhysicalExaminationInter) {
   return request("/hda/package/bookPhysicalExamination", "POST", data);
 }
+
+export function getReservedListApi(status?: number) {
+  return request(
+    `/hda/package/getReservedList${status ? `?status=${status}` : ""}`,
+    "GET"
+  );
+}
+
+export function getReservedDetailsApi(phyExaCode: string) {
+  return request(
+    `/hda/package/getReservedDetails?phyExaCode=${phyExaCode}`,
+    "GET"
+  );
+}

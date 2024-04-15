@@ -1,26 +1,42 @@
 <template>
   <view class="report">
-    <view class="item" v-for="item in reportList" :key="item.reportId">
+    <view class="item" v-for="item in reportList" :key="item.phyExaCode">
       <view class="nav">
-        <image class="logo" src="" mode="widthFix"></image>
-        <text>心检寓</text>
+        <image
+          class="logo"
+          :src="`${url_config}${hospitalInfo.logo}`"
+          mode="widthFix"
+        ></image>
+        <text>{{ hospitalInfo.name }}</text>
+      </view>
+      <view
+        class="status"
+        v-for="status in statusList"
+        :style="{ color: status.color }"
+      >
+        <template v-if="item.status === status.key">
+          {{ status.value }}
+        </template>
       </view>
       <view class="content">
         <view class="content_left">
           <view class="package_name">{{ item.packageName }}</view>
           <view class="name">
-            <text>就诊人:</text>
+            <text>体&nbsp;&nbsp;检&nbsp;&nbsp;人:</text>
             <text>{{ item.name }}</text>
           </view>
           <view class="date">
-            <text>时&nbsp;&nbsp;&nbsp;间:</text>
+            <text>体检时间:</text>
             <text>{{ item.date }}</text>
           </view>
         </view>
         <view class="content_right">
-          <view class="status pending" v-if="item.status === 0">待出结果</view>
-          <view class="status fulfilled" v-else>结果已出</view>
-          <button v-if="item.status !== 0" @click="viewReport">查看报告</button>
+          <button v-if="item.status === 1" @click="goToPay(item.phyExaCode)">
+            查看详情
+          </button>
+          <button v-if="item.status === 3" @click="viewReport(item.reportUrl)">
+            查看报告
+          </button>
         </view>
       </view>
     </view>
@@ -28,28 +44,61 @@
 </template>
 
 <script setup lang="ts">
-const reportList = ref([
-  {
-    reportId: "R100100",
-    packageName: "女性基础检查",
-    name: "张三",
-    date: "2024-3-20 12:40:56",
-    status: 0,
-    reportUrl: null,
-  },
-  {
-    reportId: "R100101",
-    packageName: "女性常规检查 TCT+HPV",
-    name: "李四",
-    date: "2024-3-20 12:40:56",
-    status: 1,
-    reportUrl: null,
-  },
-]);
+import { url_config } from "@/apis/config";
+import { onLoad } from "@dcloudio/uni-app";
+import { getReservedListApi } from "@/apis/physicalExamination/index";
+import { getRegStatusListApi } from "@/apis/registered/index";
+import { getHospitalInfoApi } from "@/apis/hospital/index";
+import { navigateTo } from "@/router";
+import { type ReportListInter } from "./types";
 
-function viewReport() {
+onLoad(async () => {
+  await getHospitalInfo();
+  await getRegStatusList();
+  getReservedList();
+});
+
+async function getReservedList() {
+  try {
+    const res: any = await getReservedListApi();
+    reportList.value = res;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+let statusList: Array<any> = [];
+async function getRegStatusList() {
+  try {
+    statusList = (await getRegStatusListApi()) as any;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const hospitalInfo = ref<any>({
+  logo: "",
+  name: "",
+  phone: "",
+  location: "",
+  introduce: "",
+});
+async function getHospitalInfo() {
+  const res: any = await getHospitalInfoApi();
+  hospitalInfo.value = res;
+}
+
+const reportList = ref<Array<ReportListInter>>([]);
+
+function goToPay(phyExaCode: string) {
+  navigateTo(
+    `/pages/physical-examination/result/index?phyExaCode=${phyExaCode}&flag=1`
+  );
+}
+
+function viewReport(url: string) {
   uni.downloadFile({
-    url: "https://www.wedone.net.cn/testImg/final-report/N240313001.pdf",
+    url: `${url_config}${url}`,
     success: (res) => {
       let tempFilePath = res.tempFilePath;
       uni.saveFile({
@@ -110,6 +159,12 @@ function viewReport() {
       }
     }
 
+    .status {
+      position: absolute;
+      top: 20rpx;
+      right: 40rpx;
+    }
+
     .content {
       display: flex;
       justify-content: space-between;
@@ -137,21 +192,8 @@ function viewReport() {
 
       .content_right {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: flex-end;
-
-        .status {
-          font-size: 30rpx;
-        }
-
-        .pending {
-          color: #ff6f31;
-        }
-
-        .fulfilled {
-          color: #226bf3;
-        }
 
         button {
           padding: 20rpx;
@@ -161,10 +203,10 @@ function viewReport() {
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: #226bf3;
+          background-color: #7b81ff;
+          border-color: #7b81ff;
           color: #fff;
           border-radius: 5px;
-          border-color: #226bf3;
         }
       }
     }

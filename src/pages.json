@@ -147,11 +147,12 @@
     {
       "path": "pages/report/index",
       "style": {
-        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarBackgroundColor": "#7B81FF",
         "navigationBarTitleText": "报告查询"
       },
       "meta": {
-        "auth": true
+        "auth": true,
+        "noBind": true
       }
     },
     {
@@ -201,6 +202,17 @@
       "style": {
         "navigationBarBackgroundColor": "#7B81FF",
         "navigationBarTitleText": "体检登记"
+      },
+      "meta": {
+        "auth": true,
+        "noBind": true
+      }
+    },
+    {
+      "path": "pages/physical-examination/result/index",
+      "style": {
+        "navigationBarBackgroundColor": "#7B81FF",
+        "navigationBarTitleText": "登记结果"
       },
       "meta": {
         "auth": true,

@@ -71,7 +71,6 @@ const code = ref("");
 onLoad(async (option: any) => {
   code.value = option.packageCode;
   await getPhysicalExaminationList();
-  handleBook();
 });
 
 const packageInfo = ref<PackageInfoInter>({
@@ -129,16 +128,20 @@ async function handleBook() {
 }
 
 function confirm(params: any) {
-  if (params.extraInfo.value) {
-    navigateTo(
-      `/pages/physical-examination/medical-registration/index?packageCode=${code.value}&date=${params.fulldate}&price=${packageInfo.value.preferentialPrice}`
-    );
-  } else {
-    uni.showToast({
-      title: "该日期已约满",
-      icon: "none",
-    });
-  }
+  packageScheduling.value.forEach((item: any) => {
+    if (item.date === params.fulldate) {
+      if (item.value > 0) {
+        navigateTo(
+          `/pages/physical-examination/medical-registration/index?packageCode=${code.value}&date=${params.fulldate}&price=${packageInfo.value.preferentialPrice}&packageName=${packageInfo.value.packageName}`
+        );
+      } else {
+        uni.showToast({
+          title: "该日期已约满",
+          icon: "none",
+        });
+      }
+    }
+  });
 }
 </script>
 

@@ -34,7 +34,7 @@ const props = defineProps({
 const carouselConfig = ref({
   indicatorDots: false,
   autoplay: true,
-  interval: 2000,
+  interval: 3000,
   duration: 500,
 });
 </script>

@@ -1,24 +1,50 @@
 <template>
   <view class="outpatient_payment">
+    <view class="selector">
+      <uni-data-checkbox
+        v-model="selectType"
+        :localdata="typeList"
+        mode="button"
+        selectedColor="#226bf3"
+        @change="changeType"
+      ></uni-data-checkbox>
+    </view>
     <view class="content">
-      <view class="item" v-for="item in paymentList" :key="item._id">
-        <view class="item_left">
-          <view class="project_name">
-            <template v-if="item.regCode"> 挂号费 </template>
-            <template v-if="item.peiCode"> 体检费 </template>
-            <template v-if="item.HosCode"> 住院费 </template>
+      <template v-if="selectType === 'gh' || selectType === 'all'">
+        <view class="item" v-for="item in registeredList" :key="item._id">
+          <view class="item_left">
+            <view class="project_name"> 挂号费 </view>
+            <view class="project_info">
+              <text class="dept">{{ item.deptName }}</text>
+              <text class="doc_name">{{ item.docName }}</text>
+            </view>
+            <text class="date">{{ item.appointmentTime }}</text>
           </view>
-          <view class="project_info">
-            <text class="dept">{{ item.deptName }}</text>
-            <text class="doc_name">{{ item.docName }}</text>
+          <view class="item_right">
+            <text class="price">{{ item.price }}</text>
+            <button @click="goToPayDetails(item.regCode, 'gh')">
+              查 看 详 情
+            </button>
           </view>
-          <text class="date">{{ item.appointmentTime }}</text>
         </view>
-        <view class="item_right">
-          <text class="price">{{ item.price }}</text>
-          <button @click="goToPayDetails">查 看 详 情</button>
+      </template>
+      <template v-if="selectType === 'tj' || selectType === 'all'">
+        <view class="item" v-for="item in reservedList" :key="item._id">
+          <view class="item_left">
+            <view class="project_name"> 体检费 </view>
+            <view class="project_info">
+              <text class="dept">{{ item.packageName }}</text>
+            </view>
+            <text class="date">{{ item.appointmentTime }}</text>
+          </view>
+          <view class="item_right">
+            <text class="price">{{ item.price }}</text>
+            <button @click="goToPayDetails(item.phyExaCode, 'tj')">
+              查 看 详 情
+            </button>
+          </view>
         </view>
-      </view>
+      </template>
     </view>
   </view>
 </template>
@@ -26,11 +52,29 @@
 <script setup lang="ts">
 import { navigateTo } from "@/router/index";
 import { getRegisteredRecordApi } from "@/apis/registered/index";
+import { getReservedListApi } from "@/apis/physicalExamination/index";
 import { onLoad } from "@dcloudio/uni-app";
 
-onLoad(() => {
-  getRegisteredRecord();
+onLoad(async () => {
+  await getRegisteredRecord();
+  await getReservedList();
 });
+
+const selectType = ref("all");
+const typeList = ref([
+  {
+    text: "全部",
+    value: "all",
+  },
+  {
+    text: "挂号",
+    value: "gh",
+  },
+  {
+    text: "体检",
+    value: "tj",
+  },
+]);
 
 async function getRegisteredRecord() {
   try {
@@ -39,18 +83,49 @@ async function getRegisteredRecord() {
       status: 1,
     };
     const res: any = await getRegisteredRecordApi(data);
-    res.forEach((item: any) => {
-      paymentList.value.push(item);
-    });
+    registeredList.value = res;
   } catch (err) {
     console.log(err);
   }
 }
 
-const paymentList: any = ref([]);
+async function getReservedList() {
+  try {
+    const res: any = await getReservedListApi(1);
+    reservedList.value = res;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-function goToPayDetails() {
-  navigateTo("/pages/outpatient-payment/payment-confirm/index");
+const registeredList: any = ref([]); // 挂号列表
+const reservedList: any = ref([]); // 体检预约列表
+
+function goToPayDetails(params: string, type: string) {
+  switch (type) {
+    case "gh":
+      navigateTo(
+        `/pages/registration-record/record-details/index?regCode=${params}`
+      );
+      break;
+    case "tj":
+      navigateTo(
+        `/pages/physical-examination/result/index?phyExaCode=${params}&flag=1`
+      );
+      break;
+  }
+}
+
+async function changeType(params: any) {
+  const { value } = params.detail;
+  if (value === "gh") {
+    getRegisteredRecord();
+  } else if (value === "tj") {
+    getReservedList();
+  } else {
+    await getRegisteredRecord();
+    await getReservedList();
+  }
 }
 </script>
 
@@ -59,6 +134,14 @@ function goToPayDetails() {
   padding: 20rpx;
   background-color: #f5f5f5;
   min-height: 97vh;
+
+  .selector {
+    :deep(.checklist-group) {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
 
   .content {
     .item {

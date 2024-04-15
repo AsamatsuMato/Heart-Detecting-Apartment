@@ -1,6 +1,7 @@
 export interface BookPhysicalExaminationInter {
   date: string;
   packageCode: string;
+  packageName: string;
   price: number;
   name: string;
   idCard: string;

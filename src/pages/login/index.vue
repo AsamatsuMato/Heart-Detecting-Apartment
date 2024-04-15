@@ -4,7 +4,7 @@
       <view class="top">
         <image
           class="logo"
-          src="@/static/images/logo.jpg"
+          :src="`${url_config}/images/hospital/logo.jpg`"
           mode="widthFix"
         ></image>
         <view class="name">心检寓</view>
@@ -25,6 +25,7 @@
 
 <script setup lang="ts">
 import { authorizedAccessTokenApi } from "@/apis/login/index";
+import { url_config } from "@/apis/config";
 function getUserInfo() {
   my.getAuthCode({
     scopes: "auth_user",

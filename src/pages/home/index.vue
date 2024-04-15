@@ -2,7 +2,7 @@
   <view class="home">
     <carousel :urlList="urlList" />
     <outpatient-service />
-    <inpatient-service />
+    <hospital-service />
     <copyright />
   </view>
 </template>
@@ -11,7 +11,7 @@
 import Carousel from "@/components/Carousel/index.vue";
 import Copyright from "@/components/Copyright/index.vue";
 import OutpatientService from "./components/Outpatient-Service.vue";
-import InpatientService from "./components/Inpatient-Service.vue";
+import HospitalService from "./components/Hospital-Service.vue";
 import { getCarouselApi } from "@/apis/home/index";
 
 onMounted(() => {
@@ -29,5 +29,6 @@ async function getCarousel() {
 .home {
   padding: 20rpx;
   background: linear-gradient(to bottom, #226bf3, #fff 300rpx);
+  min-height: 97vh;
 }
 </style>

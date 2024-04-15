@@ -41,12 +41,12 @@
         ></image>
         <text>挂号记录</text>
       </view>
-      <view class="item" @click="goToReport">
+      <view class="item" @click="goToDialysisPrepayment">
         <image
-          src="@/static/icon/outpatient-service/report-query.png"
+          src="@/static/icon/outpatient-service/dialysis-prepayment.png"
           mode="widthFix"
         ></image>
-        <text>报告查询</text>
+        <text>透析预缴</text>
       </view>
       <view class="item" @click="goToPrepaymentRecord">
         <image
@@ -62,19 +62,19 @@
         ></image>
         <text>就诊人管理</text>
       </view>
-      <view class="item" @click="goToDialysisPrepayment">
-        <image
-          src="@/static/icon/outpatient-service/dialysis-prepayment.png"
-          mode="widthFix"
-        ></image>
-        <text>透析预缴</text>
-      </view>
       <view class="item" @click="goToPhysicalExaminations">
         <image
           src="@/static/icon/outpatient-service/medical-registration.png"
           mode="widthFix"
         ></image>
         <text>体检登记</text>
+      </view>
+      <view class="item" @click="goToReport">
+        <image
+          src="@/static/icon/outpatient-service/report-query.svg"
+          mode="widthFix"
+        ></image>
+        <text>报告查询</text>
       </view>
     </view>
   </view>

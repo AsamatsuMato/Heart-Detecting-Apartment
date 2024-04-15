@@ -136,13 +136,15 @@ import CustomButton from "@/components/Custom-Button/index.vue";
 import moment from "moment";
 import { bookPhysicalExaminationApi } from "@/apis/physicalExamination/index";
 import { onLoad } from "@dcloudio/uni-app";
-import { reLaunch } from "@/router";
+import { navigateTo } from "@/router";
 
 const packageCode = ref("");
+const packageName = ref("");
 const date = ref("");
 const price = ref(0);
 onLoad((option: any) => {
   packageCode.value = option.packageCode;
+  packageName.value = option.packageName;
   date.value = option.date;
   price.value = option.price;
 });
@@ -255,6 +257,7 @@ async function submit() {
   } = medicalHistory.value;
   const data = {
     packageCode: packageCode.value,
+    packageName: packageName.value,
     date: date.value,
     price: price.value,
     name,
@@ -269,11 +272,10 @@ async function submit() {
     allergicHistoryContent,
   };
   try {
-    await bookPhysicalExaminationApi(data);
-    reLaunch("/pages/home/index");
-    uni.showToast({
-      title: "体检预约成功",
-    });
+    const res: any = await bookPhysicalExaminationApi(data);
+    navigateTo(
+      `/pages/physical-examination/result/index?phyExaCode=${res}&flag=1`
+    );
   } catch (err) {
     console.log(err);
   }

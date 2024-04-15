@@ -1,6 +1,6 @@
 <template>
   <view class="options-list">
-    <view class="item">
+    <view class="item" @click="goToPatientManagement">
       <view class="item_left">
         <image
           src="@/static/icon/outpatient-service/patient-management.png"
@@ -15,7 +15,7 @@
         ></image>
       </view>
     </view>
-    <view class="item">
+    <view class="item" @click="goToRegistrationRecord">
       <view class="item_left">
         <image
           src="@/static/icon/outpatient-service/registration-record.png"
@@ -30,13 +30,13 @@
         ></image>
       </view>
     </view>
-    <view class="item">
+    <view class="item" @click="goToPrepaymentRecord">
       <view class="item_left">
         <image
           src="@/static/icon/outpatient-service/payment-record.png"
           mode="widthFix"
         ></image>
-        <text>门诊缴费记录</text>
+        <text>透析预缴记录</text>
       </view>
       <view class="item_right">
         <image
@@ -45,13 +45,13 @@
         ></image>
       </view>
     </view>
-    <view class="item">
+    <view class="item" @click="goToReport">
       <view class="item_left">
         <image
-          src="@/static/icon/inpatient-service/deposit-record.png"
+          src="@/static/icon/outpatient-service/report-query.svg"
           mode="widthFix"
         ></image>
-        <text>住院缴费记录</text>
+        <text>体检预约查询</text>
       </view>
       <view class="item_right">
         <image
@@ -60,22 +60,7 @@
         ></image>
       </view>
     </view>
-    <view class="item">
-      <view class="item_left">
-        <image
-          src="@/static/icon/about/my-collection.png"
-          mode="widthFix"
-        ></image>
-        <text>我的收藏</text>
-      </view>
-      <view class="item_right">
-        <image
-          src="@/static/icon/about/arrow-right.svg"
-          mode="widthFix"
-        ></image>
-      </view>
-    </view>
-    <view class="item">
+    <view class="item" @click="">
       <view class="item_left">
         <image
           src="@/static/icon/about/satisfaction-survey.png"
@@ -93,7 +78,25 @@
   </view>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { navigateTo } from "@/router";
+
+function goToPatientManagement() {
+  navigateTo("/pages/patient-management/index");
+}
+
+function goToRegistrationRecord() {
+  navigateTo("/pages/registration-record/index");
+}
+
+function goToPrepaymentRecord() {
+  navigateTo("/pages/prepayment-record/index");
+}
+
+function goToReport() {
+  navigateTo("/pages/report/index");
+}
+</script>
 
 <style lang="scss" scoped>
 .options-list {
