@@ -49,6 +49,13 @@
       background="#7b81ff"
       border="1rpx solid #7b81ff"
     ></custom-button>
+    <custom-button
+      content="取 消 预 约"
+      background="#E5F0FE"
+      border="1rpx solid #v"
+      color="#7b81ff"
+      @click="cancelPhyExaAppointment"
+    ></custom-button>
   </view>
   <view class="pwd_drawer">
     <Drawer v-model="pwdDrawer" :height="350">
@@ -160,6 +167,8 @@ async function getReservedDetails() {
     console.log(err);
   }
 }
+
+async function cancelPhyExaAppointment() {}
 </script>
 
 <style lang="scss" scoped>

@@ -252,6 +252,13 @@
       "meta": {
         "auth": true
       }
+    },
+    {
+      "path": "pages/medical-guide/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "就医指南"
+      }
     }
   ],
   "tabBar": {

@@ -19,7 +19,7 @@
         ></image>
         <text>医院导航</text>
       </view>
-      <view class="grid_item">
+      <view class="grid_item" @click="medicalGuide">
         <image
           src="@/static/icon/hospital/hospital-service/medical-guide.png"
           mode="widthFix"
@@ -38,6 +38,8 @@
 </template>
 
 <script setup lang="ts">
+import { navigateTo } from "@/router";
+
 const hospitalInfo = ref({
   latitude: 0,
   longitude: 0,
@@ -59,6 +61,10 @@ function handleGPS() {
       console.log(err);
     },
   });
+}
+
+function medicalGuide() {
+  navigateTo("/pages/medical-guide/index");
 }
 
 function healthEncyclopedia() {
