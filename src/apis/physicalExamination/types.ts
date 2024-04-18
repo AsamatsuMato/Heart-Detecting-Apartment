@@ -19,3 +19,9 @@ export interface PhyExaPaymentInter {
   price: number | undefined;
   paymentPwd: string;
 }
+
+export interface CancelPhyExaAppointmentInter {
+  packageCode: string;
+  phyExaCode: string;
+  date: string;
+}

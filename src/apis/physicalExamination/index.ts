@@ -2,6 +2,7 @@ import request from "../request";
 import {
   type BookPhysicalExaminationInter,
   type PhyExaPaymentInter,
+  type CancelPhyExaAppointmentInter,
 } from "./types";
 
 export function getPhysicalExaminationListApi(packageCode?: string) {
@@ -37,4 +38,8 @@ export function getReservedDetailsApi(phyExaCode: string) {
 
 export function phyExaPaymentApi(data: PhyExaPaymentInter) {
   return request("/hda/order/phyExaPayment", "POST", data);
+}
+
+export function cancelPhyExaAppointmentApi(data: CancelPhyExaAppointmentInter) {
+  return request("/hda/package/cancelPhyExaAppointment", "POST", data);
 }

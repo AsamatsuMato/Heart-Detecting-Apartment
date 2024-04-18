@@ -60,7 +60,7 @@
         ></image>
       </view>
     </view>
-    <view class="item" @click="">
+    <view class="item" @click="goToQuestionnaireSurvey">
       <view class="item_left">
         <image
           src="@/static/icon/about/satisfaction-survey.png"
@@ -95,6 +95,10 @@ function goToPrepaymentRecord() {
 
 function goToReport() {
   navigateTo("/pages/report/index");
+}
+
+function goToQuestionnaireSurvey() {
+  navigateTo("/pages/questionnaire-survey/index");
 }
 </script>
 

@@ -259,6 +259,13 @@
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "就医指南"
       }
+    },
+    {
+      "path": "pages/questionnaire-survey/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "满意度调查"
+      }
     }
   ],
   "tabBar": {

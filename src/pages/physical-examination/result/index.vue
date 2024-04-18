@@ -51,8 +51,9 @@
     ></custom-button>
     <custom-button
       content="取 消 预 约"
-      background="#E5F0FE"
-      border="1rpx solid #v"
+      v-if="detailsInfo.status === 1"
+      background="#F4F4FF"
+      border="1rpx solid #7b81ff"
       color="#7b81ff"
       @click="cancelPhyExaAppointment"
     ></custom-button>
@@ -97,6 +98,7 @@ import { onLoad } from "@dcloudio/uni-app";
 import {
   getReservedDetailsApi,
   phyExaPaymentApi,
+  cancelPhyExaAppointmentApi,
 } from "@/apis/physicalExamination/index";
 import { reLaunch } from "@/router";
 
@@ -168,7 +170,31 @@ async function getReservedDetails() {
   }
 }
 
-async function cancelPhyExaAppointment() {}
+function cancelPhyExaAppointment() {
+  uni.showModal({
+    title: "提示",
+    content: "是否取消预约",
+    success: async (res: any) => {
+      if (res.confirm) {
+        const { packageCode, phyExaCode, date } = detailsInfo.value;
+        const data = {
+          packageCode,
+          phyExaCode,
+          date,
+        };
+        try {
+          await cancelPhyExaAppointmentApi(data);
+          reLaunch("/pages/home/index");
+          uni.showToast({
+            title: "取消预约成功",
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    },
+  });
+}
 </script>
 
 <style lang="scss" scoped>
