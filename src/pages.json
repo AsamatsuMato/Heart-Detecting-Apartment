@@ -266,6 +266,13 @@
         "navigationBarBackgroundColor": "#226BF3",
         "navigationBarTitleText": "满意度调查"
       }
+    },
+    {
+      "path": "pages/block-distribution/index",
+      "style": {
+        "navigationBarBackgroundColor": "#226BF3",
+        "navigationBarTitleText": "楼层分布"
+      }
     }
   ],
   "tabBar": {

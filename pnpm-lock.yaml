@@ -88,6 +88,9 @@ devDependencies:
   '@vue/runtime-core':
     specifier: ^3.2.45
     version: 3.3.8
+  crypto-js:
+    specifier: ^3.3.0
+    version: 3.3.0
   eslint:
     specifier: ^8.53.0
     version: 8.53.0
@@ -4085,6 +4088,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+    dev: true
+
+  /crypto-js@3.3.0:
+    resolution: {integrity: sha512-DIT51nX0dCfKltpRiXV+/TVZq+Qq2NgF4644+K7Ttnla7zEzqc+kjJyiB96BHNyUTBxyjzRcZYpUdZa+QAqi6Q==}
     dev: true
 
   /css-font-size-keywords@1.0.0:

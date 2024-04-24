@@ -1,8 +1,13 @@
 <template>
   <view class="Outpatient_Service">
     <view class="label">
-      <view class="icon"></view>
-      <text class="title">门诊服务</text>
+      <view class="left">
+        <view class="icon"></view>
+        <text class="title">门诊服务</text>
+      </view>
+      <view class="right" @click="spreadCode">
+        <image src="@/static/icon/qrcode-blue.svg" mode="widthFix"></image>
+      </view>
     </view>
     <view class="top">
       <view class="register" @click="goToRegister">
@@ -82,6 +87,7 @@
 
 <script setup lang="ts">
 import { navigateTo } from "@/router/index";
+import { getPatientInfoApi } from "@/apis/patient/index";
 
 function goToRegister() {
   navigateTo("/pages/registered/select-dept/index");
@@ -114,6 +120,18 @@ function goToPhysicalExaminations() {
 function goToPrepaymentRecord() {
   navigateTo("/pages/prepayment-record/index");
 }
+
+async function spreadCode() {
+  try {
+    const res: any = await getPatientInfoApi();
+    const { name, idCard, birthday, phone, address, medicalCardNo } = res;
+    navigateTo(
+      `/pages/patient-management/patient-info/index?name=${name}&idCard=${idCard}&birthday=${birthday}&phone=${phone}&address=${address}&medicalCardNo=${medicalCardNo}`
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -122,18 +140,29 @@ function goToPrepaymentRecord() {
   .label {
     margin: 20rpx 0;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 
-    .icon {
-      background-color: #226bf3;
-      width: 40rpx;
-      height: 13rpx;
-      border-radius: 10rpx;
-      margin-right: 20rpx;
+    .left {
+      display: flex;
+      align-items: center;
+      .icon {
+        background-color: #226bf3;
+        width: 40rpx;
+        height: 13rpx;
+        border-radius: 10rpx;
+        margin-right: 20rpx;
+      }
+
+      .title {
+        font-size: 20px;
+      }
     }
 
-    .title {
-      font-size: 20px;
+    .right {
+      image {
+        width: 50rpx;
+      }
     }
   }
 

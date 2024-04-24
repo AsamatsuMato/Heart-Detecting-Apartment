@@ -37,6 +37,13 @@
       </view>
     </view>
     <custom-button content="确认缴费" @click="pwdDrawer = true" />
+    <custom-button
+      content="设置支付密码"
+      background="#E5F0FE"
+      border="1rpx solid #CFD8E5"
+      color="#226BF3"
+      @click="settingDrawer = true"
+    />
   </view>
   <view class="pwd_drawer">
     <Drawer v-model="pwdDrawer" :height="350">
@@ -67,15 +74,46 @@
       </template>
     </Drawer>
   </view>
+  <view class="pwd_drawer">
+    <Drawer v-model="settingDrawer" :height="350">
+      <template #title>
+        <text>设置密码</text>
+      </template>
+      <template #content>
+        <view class="tip">
+          <text>请设置您的支付密码</text>
+          <image
+            v-if="!settingIsShowPwd"
+            src="@/static/icon/eyes/eye-false.svg"
+            mode="widthFix"
+            @click="changeSettingPwdStatus"
+          ></image>
+          <image
+            v-else
+            src="@/static/icon/eyes/eye-true.svg"
+            mode="widthFix"
+            @click="changeSettingPwdStatus"
+          ></image>
+        </view>
+        <pwd-input
+          v-model="settingPassword"
+          :show-val="settingIsShowPwd"
+          @confirm="confirmSetting"
+        />
+      </template>
+    </Drawer>
+  </view>
 </template>
 
 <script setup lang="ts">
 import CustomButton from "@/components/Custom-Button/index.vue";
 import { dialysisPrepaymentApi } from "@/apis/prepayment/index";
+import { settingPaymentPwdApi } from "@/apis/user/index";
 import { getUserInfoApi } from "@/apis/user/index";
 import { onLoad } from "@dcloudio/uni-app";
 import Drawer from "@/components/Drawer/index.vue";
 import PwdInput from "@/components/PwdInput/index.vue";
+import { encrypt } from "@/utils/cryptoEncipher";
 
 const pwdDrawer = ref(false);
 const password = ref("");
@@ -85,6 +123,13 @@ function changePwdStatus() {
   isShowPwd.value = !isShowPwd.value;
 }
 
+const settingDrawer = ref(false);
+const settingPassword = ref("");
+const settingIsShowPwd = ref(false);
+
+function changeSettingPwdStatus() {
+  settingIsShowPwd.value = !settingIsShowPwd.value;
+}
 onLoad(() => {
   getUserInfo();
 });
@@ -189,6 +234,20 @@ async function dialysisPrepayment(rechargeAmount: number) {
     console.log(err);
   }
 }
+
+async function confirmSetting() {
+  try {
+    await settingPaymentPwdApi(encrypt(settingPassword.value));
+    uni.redirectTo({
+      url: "/pages/dialysis-prepayment/index",
+    });
+    uni.showToast({
+      title: "支付密码设置成功",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -265,6 +324,10 @@ async function dialysisPrepayment(rechargeAmount: number) {
       border-color: #226bf3;
       color: #226bf3;
     }
+  }
+
+  :deep(.custom_button) {
+    margin-bottom: 40rpx;
   }
 }
 

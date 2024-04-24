@@ -5,12 +5,12 @@
       <text class="title">医院服务</text>
     </view>
     <view class="grid">
-      <view class="grid_item">
+      <view class="grid_item" @click="handleBlockDistribution">
         <image
           src="@/static/icon/hospital/hospital-service/hospital-dynamics.png"
           mode="widthFix"
         ></image>
-        <text>医院动态</text>
+        <text>楼层分布</text>
       </view>
       <view class="grid_item" @click="handleGPS">
         <image
@@ -46,6 +46,10 @@ const hospitalInfo = ref({
   name: "",
   address: "",
 });
+
+function handleBlockDistribution() {
+  navigateTo("/pages/block-distribution/index");
+}
 
 function handleGPS() {
   const { latitude, longitude, name, address } = hospitalInfo.value;

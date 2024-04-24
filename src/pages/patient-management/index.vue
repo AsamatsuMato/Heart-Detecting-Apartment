@@ -105,7 +105,7 @@ function goToDetails() {
     width: 100%;
     height: 400rpx;
     background: no-repeat
-      url("https://gzzy.wedone.net.cn/AdminApi/chsp/careHeadPhoto/tWdHOCpL.png");
+      url("https://wcfy.88fda.com:4434/adminApi/chsp/hospitalized/file/getImage/1694602868285.png");
     background-size: 100% 100%;
     background-position: center;
     display: flex;

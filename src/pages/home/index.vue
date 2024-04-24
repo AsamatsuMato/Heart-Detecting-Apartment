@@ -45,6 +45,5 @@ async function getHospitalInfo() {
 .home {
   padding: 20rpx;
   background: linear-gradient(to bottom, #226bf3, #fff 300rpx);
-  min-height: 97vh;
 }
 </style>

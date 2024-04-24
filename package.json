@@ -72,6 +72,7 @@
     "@dcloudio/uni-stacktracey": "3.0.0-3090620231104002",
     "@dcloudio/vite-plugin-uni": "3.0.0-3090620231104002",
     "@vue/runtime-core": "^3.2.45",
+    "crypto-js": "^3.3.0",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
