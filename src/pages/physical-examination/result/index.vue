@@ -101,6 +101,7 @@ import {
   cancelPhyExaAppointmentApi,
 } from "@/apis/physicalExamination/index";
 import { reLaunch } from "@/router";
+import { encrypt } from "@/utils/cryptoEncipher";
 
 const phyExaCode = ref("");
 const flag = ref("");
@@ -117,7 +118,7 @@ async function confirmPayment() {
   const data = {
     phyExaCode: phyExaCode.value,
     price: detailsInfo.value.price,
-    paymentPwd: password.value,
+    paymentPwd: encrypt(password.value),
   };
   try {
     await phyExaPaymentApi(data);

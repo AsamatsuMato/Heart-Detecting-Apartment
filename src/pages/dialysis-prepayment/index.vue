@@ -220,7 +220,7 @@ async function confirmPayment() {
 async function dialysisPrepayment(rechargeAmount: number) {
   const data = {
     rechargeAmount,
-    paymentPwd: password.value,
+    paymentPwd: encrypt(password.value),
   };
   try {
     await dialysisPrepaymentApi(data);
@@ -236,8 +236,11 @@ async function dialysisPrepayment(rechargeAmount: number) {
 }
 
 async function confirmSetting() {
+  const data = {
+    paymentPwd: encrypt(settingPassword.value),
+  };
   try {
-    await settingPaymentPwdApi(encrypt(settingPassword.value));
+    await settingPaymentPwdApi(data);
     uni.redirectTo({
       url: "/pages/dialysis-prepayment/index",
     });

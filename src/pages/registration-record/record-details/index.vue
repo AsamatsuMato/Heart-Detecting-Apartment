@@ -85,6 +85,7 @@ import CustomButton from "@/components/Custom-Button/index.vue";
 import Drawer from "@/components/Drawer/index.vue";
 import PwdInput from "@/components/PwdInput/index.vue";
 import { reLaunch } from "@/router/index";
+import { encrypt } from "@/utils/cryptoEncipher";
 
 const pwdDrawer = ref(false);
 const password = ref("");
@@ -159,7 +160,7 @@ async function confirmPayment() {
     const data = {
       regCode: code.value,
       price: detailsInfo.value.price,
-      paymentPwd: password.value,
+      paymentPwd: encrypt(password.value),
     };
     await registeredPaymentApi(data);
     reLaunch("/pages/registration-record/index");

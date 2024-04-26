@@ -33,7 +33,7 @@
           class="item"
           v-for="(item, index) in timeList"
           :key="index"
-          @click="goToConfirm(item.time)"
+          @click="goToConfirm(item.time, item.remaining)"
         >
           <view>{{ item.time }}</view>
           <view v-if="item.remaining !== 0" style="color: #226bf3"
@@ -121,13 +121,19 @@ function handleSelectDate(params: any) {
 
 const timeList = ref<Array<TimeListInter>>([]);
 
-function goToConfirm(timePeriod: string) {
-  const { completeDate } = dateList.value.find((item: any) => {
-    return item.isActive === true;
-  });
-  navigateTo(
-    `/pages/registered/reg-confirm/index?docCode=${docCode.value}&date=${completeDate}&timePeriod=${timePeriod}`
-  );
+function goToConfirm(timePeriod: string, remaining: number) {
+  if (remaining > 0) {
+    const { completeDate } = dateList.value.find((item: any) => {
+      return item.isActive === true;
+    });
+    navigateTo(
+      `/pages/registered/reg-confirm/index?docCode=${docCode.value}&date=${completeDate}&timePeriod=${timePeriod}`
+    );
+  } else {
+    uni.showToast({
+      title: "该时段已约满",
+    });
+  }
 }
 </script>
 

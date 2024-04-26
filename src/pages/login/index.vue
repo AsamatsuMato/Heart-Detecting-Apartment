@@ -17,7 +17,7 @@
         >
           支付宝一键登录
         </button>
-        <view class="back" @click="back">返回</view>
+        <!-- <view class="back" @click="back">返回</view> -->
       </view>
     </view>
   </view>
@@ -45,8 +45,16 @@ function getUserInfo() {
       uni.reLaunch({
         url: "/pages/about/index",
       });
+      uni.showToast({
+        title: "登录成功",
+        icon: "success",
+      });
     },
     fail: (err: any) => {
+      uni.showToast({
+        title: err.errorMessage,
+        icon: "fail",
+      });
       console.log(err);
     },
   });
