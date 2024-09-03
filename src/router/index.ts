@@ -18,10 +18,16 @@ function navigateTo(url: string) {
         uni.reLaunch({
           url: "/pages/patient-management/add-patient/index",
         });
+        uni.showToast({
+          title: "请先添加就诊人",
+        });
       }
     } else {
       uni.reLaunch({
         url: "/pages/login/index",
+      });
+      uni.showToast({
+        title: "请先进行登录授权",
       });
     }
   } else {
@@ -49,13 +55,16 @@ function reLaunch(url: string) {
         uni.reLaunch({
           url: "/pages/patient-management/add-patient/index",
         });
+        uni.showToast({
+          title: "请先添加就诊人",
+        });
       }
-      uni.reLaunch({
-        url,
-      });
     } else {
       uni.reLaunch({
         url: "/pages/login/index",
+      });
+      uni.showToast({
+        title: "请先进行登录授权",
       });
     }
   } else {
